@@ -1,0 +1,8 @@
+.leaflet-map-container {
+  width: 100%;
+  height: calc(100vh - var(--navbar-height));
+}
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}
