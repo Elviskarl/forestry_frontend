@@ -1,0 +1,21 @@
+div.hero {
+  height: calc(100vh - var(--navbar-height));
+  background: url("../../../assets/hero.webp") center / cover no-repeat
+    var(--tertiary-shade);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.hero-title {
+  color: var(--white-color);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+  color: var(--white-color);
+  text-align: center;
+}
