@@ -8,14 +8,50 @@ div.hero {
   align-items: center;
   position: relative;
 }
-
+.hero-texts {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: relative;
+  max-width: 80rem;
+  padding: 1rem 0.5rem;
+  background-color: rgb(74, 70, 86, 0.15);
+}
+.hero-texts::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+}
 .hero-title {
   color: var(--white-color);
   text-align: center;
-  margin-bottom: 1rem;
 }
 
 .hero-subtitle {
   color: var(--white-color);
   text-align: center;
+}
+.hero-footer {
+  position: absolute;
+  bottom: 1rem;
+  right: 2rem;
+}
+.image-source-link-container {
+  font-size: var(--text-paragraph);
+  font-weight: var(--font-weight-bold);
+  color: var(--white-color);
+  padding: 0.5rem;
+  background-color: rgba(74, 70, 86, 0.2);
+}
+.image-source-link-container:hover {
+  transform: scale(1.1);
+}
+.image-source-link {
+  color: blue;
+  font-size: inherit;
+  transition: transform 0.5s ease-in-out;
 }
