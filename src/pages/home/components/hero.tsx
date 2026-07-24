@@ -11,7 +11,7 @@ function Hero() {
       </div>
       <div className="hero-footer">
         <span className="image-source-link-container">
-          Image credit -{" "}
+          Aerial view of Mau forest -{" "}
           <a
             href="https://infonile.org/en/2022/10/how-politics-has-subverted-conservation-efforts-to-protect-kenyas-mau-forest/"
             target="_blank"
