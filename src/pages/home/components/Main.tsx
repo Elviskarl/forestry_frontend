@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import * as turf from "@turf/turf";
 import { ShapefileContext } from "../../../context/createShapefileContext";
+import MiniMap from "../../../components/mini-map/MiniMap";
 
 function Main() {
   const { target_counties, mau_forest } = useContext(ShapefileContext)!;
@@ -141,12 +142,53 @@ function Main() {
           visual record used in this study. Consequently it represents the
           greatest forest extent illustrated within this project.
         </p>
+        <MiniMap
+          description="1984 composite image"
+          url="/api/v1/tiles"
+          data={{
+            dataset: "landsat",
+            year: 1984,
+          }}
+        />
+        <p className="text">
+          To enable consistent comparison across the study period, each
+          observation year is accompanied by a land-cover classification derived
+          from the corresponding Landsat composite. These classifications
+          provide a quantitative assessment of the landscape by mapping the
+          spatial distribution and extent of the major land-cover types within
+          the study area.
+        </p>
+        <p className="text">
+          Five land-cover classes are identified throughout the analysis:
+          forest, herbaceous vegetation, urban areas, bare soil, and water.
+          Together, they provide a consistent framework for measuring and
+          comparing changes in the Forest Complex.
+        </p>
         <h4>2000</h4>
+        <p className="text">
+          The year 2000 marks the analytical baseline of the study. It also
+          precedes the landmark 2002 general elections.
+        </p>
+        <p className="text">
+          Compared with the 1984 - 1986 reference image, changes in forest cover
+          are already evident, indicating that landscape transformation had
+          begun well before the study period.
+        </p>
+        <MiniMap
+          description="Comparison between 1984 and 2000 composite"
+          url="/api/v1/tiles/comparisons"
+          data={[
+            {
+              dataset: "landsat",
+              year: 1984,
+            },
+            {
+              dataset: "landsat",
+              year: 2000,
+            },
+          ]}
+        />
       </section>
-      <p className="text">
-        The year 2000 marks the analytical baseline of the study. It also
-        precedes the landmark 2002 general elections.
-      </p>
     </main>
   );
 }
