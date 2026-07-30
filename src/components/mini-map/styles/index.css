@@ -1,0 +1,8 @@
+.mini-map-container {
+  width: 45rem;
+  height: 40rem;
+}
+.mini-map-container > .leaflet-container {
+  height: 85%;
+  width: 100%;
+}
