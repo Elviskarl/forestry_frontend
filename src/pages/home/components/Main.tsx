@@ -6,7 +6,7 @@ import MiniMap from "../../../components/mini-map/MiniMap";
 function Main() {
   const { target_counties, mau_forest } = useContext(ShapefileContext)!;
   if (!target_counties || !mau_forest) return;
-  console.log(target_counties);
+
   return (
     <main>
       <section className="introduction">
@@ -149,6 +149,7 @@ function Main() {
             dataset: "landsat",
             year: 1984,
           }}
+          purpose="single"
         />
         <p className="text">
           To enable consistent comparison across the study period, each
@@ -187,6 +188,21 @@ function Main() {
               year: 2000,
             },
           ]}
+          purpose="comparison"
+        />
+        <p className="text">
+          From this composite image, a land cover classification map was
+          generated generated to map the spatial distribution of the five
+          land-cover classes across the study area.
+        </p>
+        <MiniMap
+          description="land cover and composite image for the year 2000"
+          url="/api/v1/tiles/comparisons"
+          data={[
+            { dataset: "classification", year: 2000 },
+            { dataset: "landsat", year: 2000 },
+          ]}
+          purpose="overlay"
         />
       </section>
     </main>
