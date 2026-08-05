@@ -1,35 +1,26 @@
-import { LayersControl, MapContainer, TileLayer, useMap } from "react-leaflet";
+import { LayersControl, MapContainer, TileLayer } from "react-leaflet";
 import * as L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useContext, useEffect, useState } from "react";
 import "./styles/index.css";
-import type { SuccessfulResponse } from "../types";
+import type {
+  ComparisonResponse,
+  MiniMapProps,
+  SuccessfulResponse,
+} from "../types";
 import { ShapefileContext } from "../../context/createShapefileContext";
-import type { FeatureCollection } from "geojson";
+import { ComparisonLayer } from "./component/ComparisonLayer";
+import DatasetLayer from "./component/DatasetLayer";
 
-interface MiniMapProps {
-  description: string;
-  url: string;
-  data: MiniMapUrlDetails | MiniMapUrlDetails[];
-}
+const bounds: L.LatLngBoundsExpression = [
+  [-0.9995495358277411, 35.23259689084519], // southwest
+  [0.23773428224974488, 36.50563766232956], // northeast
+];
+const center: L.LatLngExpression = [-0.3809076267889981, 35.86911727658737];
 
-interface MiniMapUrlDetails {
-  dataset: "landsat" | "classification";
-  year: number;
-}
-
-function FitToBounds({ data }: { data: FeatureCollection }) {
-  const map = useMap();
-
-  useEffect(() => {
-    const layer = L.geoJSON(data);
-    map.fitBounds(layer.getBounds());
-  }, [data]);
-  return null;
-}
-
-function MiniMap({ description, data, url }: MiniMapProps) {
+function MiniMap({ description, data, url, purpose }: MiniMapProps) {
   const [tileUrl, setTileUrl] = useState<string | null>(null);
+  const [tileData, setTileData] = useState<ComparisonResponse["data"]>([]);
   const { mau_forest } = useContext(ShapefileContext)!;
 
   useEffect(() => {
@@ -39,13 +30,7 @@ function MiniMap({ description, data, url }: MiniMapProps) {
           const request = new Request(url, {
             method: "POST",
             body: JSON.stringify({
-              data: [
-                { dataset: data[0].dataset, year: data[0].year },
-                {
-                  dataset: data[1].dataset,
-                  year: data[1].year,
-                },
-              ],
+              data,
             }),
             headers: {
               "Content-Type": "application/json",
@@ -53,9 +38,10 @@ function MiniMap({ description, data, url }: MiniMapProps) {
           });
 
           const result = await fetch(request);
-          const tileData = (await result.json()) as SuccessfulResponse;
-          console.log(tileData);
+          const serverResponse = (await result.json()) as ComparisonResponse;
 
+          const { data: responseData } = serverResponse;
+          setTileData(responseData);
           return;
         }
         const request = new Request(
@@ -78,14 +64,31 @@ function MiniMap({ description, data, url }: MiniMapProps) {
   }, [data, url]);
 
   if (!mau_forest) return;
+
   return (
     <div className="mini-map-container">
-      <MapContainer>
-        <FitToBounds data={mau_forest} />
+      <MapContainer
+        center={center}
+        minZoom={9}
+        scrollWheelZoom={true}
+        zoom={9}
+        bounds={bounds}
+        maxBounds={bounds}
+        maxBoundsViscosity={1.0}
+      >
         <LayersControl position="topright">
-          <LayersControl.BaseLayer name="Landsat 1984" checked>
-            {tileUrl && <TileLayer url={tileUrl} />}
-          </LayersControl.BaseLayer>
+          {purpose === "single" && "dataset" in data ? (
+            <LayersControl.BaseLayer
+              name={`${data.dataset} ${data.year}`}
+              checked
+            >
+              {tileUrl && <TileLayer url={tileUrl} noWrap={true} />}
+            </LayersControl.BaseLayer>
+          ) : purpose === "overlay" ? (
+            <DatasetLayer data={tileData} />
+          ) : (
+            <ComparisonLayer data={tileData} />
+          )}
         </LayersControl>
       </MapContainer>
       <div className="map-description">
