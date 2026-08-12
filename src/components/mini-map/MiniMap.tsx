@@ -5,7 +5,8 @@ import { useContext, useEffect, useState } from "react";
 import "./styles/index.css";
 import type {
   ComparisonResponse,
-  MiniMapProps,
+  DoubleMiniMapProps,
+  SingleMiniMapProps,
   SuccessfulResponse,
 } from "../types";
 import { ShapefileContext } from "../../context/createShapefileContext";

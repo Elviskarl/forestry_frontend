@@ -1,8 +1,8 @@
 import { LayersControl, TileLayer } from "react-leaflet";
-import type { SuccessfulResponse } from "../../types";
+import type { ComparisonResponse } from "../../types";
 
 interface DatasetLayerProps {
-  data: SuccessfulResponse["data"][];
+  data: ComparisonResponse["data"];
 }
 
 export default function DatasetLayer({ data }: DatasetLayerProps) {
@@ -10,7 +10,6 @@ export default function DatasetLayer({ data }: DatasetLayerProps) {
 
   const baseLayer = data.find((tile) => tile.dataset === "landsat");
   const overlayLayer = data.find((tile) => tile.dataset === "classification");
-
   if (!baseLayer || !overlayLayer) return null;
   return (
     <>
