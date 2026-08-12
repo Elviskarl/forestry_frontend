@@ -2,6 +2,7 @@ import type { FeatureCollection, MultiPolygon, Polygon } from "geojson";
 import { ShapefileContext } from "./createShapefileContext";
 import { useEffect, useState } from "react";
 import { loadBoundary } from "../utils/utils";
+import type { StatsResponse } from "../components/types";
 
 export function ShapefileContextProvider({
   children,
@@ -14,6 +15,9 @@ export function ShapefileContextProvider({
   const [target_counties, set_target_counties] = useState<FeatureCollection<
     Polygon | MultiPolygon
   > | null>(null);
+  const [statisticData, setStatisticData] = useState<
+    StatsResponse["data"] | null
+  >(null);
 
   useEffect(() => {
     async function loadShapefile() {
@@ -24,10 +28,26 @@ export function ShapefileContextProvider({
         console.error("Error loading shapefile:", error);
       }
     }
+    async function fetchStatistics() {
+      try {
+        const response = await fetch("/api/v1/stats");
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const statsResponseData: StatsResponse = await response.json();
+        const { data } = statsResponseData;
+        setStatisticData(data);
+      } catch (error) {
+        console.error("Error fetching stats:", error);
+      }
+    }
     loadShapefile();
+    fetchStatistics();
   }, []);
   return (
-    <ShapefileContext.Provider value={{ mau_forest, target_counties }}>
+    <ShapefileContext.Provider
+      value={{ mau_forest, target_counties, statisticData }}
+    >
       {children}
     </ShapefileContext.Provider>
   );
