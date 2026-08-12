@@ -2,9 +2,11 @@ import { useContext } from "react";
 import * as turf from "@turf/turf";
 import { ShapefileContext } from "../../../context/createShapefileContext";
 import MiniMap from "../../../components/mini-map/MiniMap";
+import StatsTable from "./StatsTable";
 
 function Main() {
   const { target_counties, mau_forest } = useContext(ShapefileContext)!;
+
   if (!target_counties || !mau_forest) return;
 
   return (
@@ -165,6 +167,12 @@ function Main() {
           Together, they provide a consistent framework for measuring and
           comparing changes in the Forest Complex.
         </p>
+        <p className="text">
+          In this classification, herbaceous vegetation represents areas
+          predominantly covered by non-woody vegetation, including grasses,
+          crops, shrubs and other low-growing vegetation that do not meet the
+          spectral characteristics used to identify forest.
+        </p>
         <h4>2000</h4>
         <p className="text">
           The year 2000 marks the analytical baseline of the study. It also
@@ -204,6 +212,278 @@ function Main() {
           ]}
           purpose="overlay"
         />
+        <StatsTable year={2000} />
+        <p className="text">
+          The results show that forest is the most dominant land cover class
+          accounting for the largest proportion of the study area. Herbaceous
+          vegetation occupies much of the forest periphery, reflecting areas
+          under cultivation and other non-forest vegetation. Urban areas, bare
+          soil, and water bodies together comprise a relatively small proportion
+          of the landscape.
+        </p>
+        <p className="text">
+          This baseline provides the reference against which all subsequent
+          observations are evaluated.
+        </p>
+        <h4>2005</h4>
+        <p className="text">
+          The year represents the first opportunity to evaluate changes from the
+          established baseline. This assessment capture the early stages of
+          landscape transformation, revealing how the land cover classes shifted
+          over the first five years of the study.
+        </p>
+        <MiniMap
+          url="/api/v1/tiles/comparisons"
+          data={[
+            { dataset: "classification", year: 2005 },
+            { dataset: "landsat", year: 2005 },
+          ]}
+          purpose="overlay"
+          description="land cover and composite image for the year 2005"
+        />
+        <StatsTable year={2005} />
+        <p className="text">
+          The 2005 classification reveals a substantial change in the
+          distribution of the two dominant land-cover classes. Forest cover
+          increased from approximately 193,421 ha in 2000 to 237,384 ha in 2005,
+          representing an increase of about 43,963 ha. Over the same period,
+          herbaceous vegetation declined by approximately 44,438 ha, from
+          181,644 ha to 137,205 ha.
+        </p>
+        <p className="text">
+          One possible explanation for the near-equivalent magnitude of these
+          changes is the maturation of vegetation within areas that were
+          previously classified as herbaceous. As young trees and regenerating
+          vegetation develop greater canopy density, their spectral
+          characteristics may increasingly resemble those of established forest,
+          resulting in their classification as forest in 2005.
+        </p>
+        <p className="text">
+          The close correspondence between the decrease in forest and increase
+          in herbaceous vegetation suggests that at least part of the observed
+          change may represent areas transitioning between these two classes,
+          whether through actual land-cover conversion, changes in vegetation
+          condition, differences in image conditions, forest degradation, or the
+          maturation and regeneration of vegetation. The observed increase
+          should therefore be understood as a change in classified forest
+          extent, rather than definitive evidence that an equivalent area of new
+          forest was established during the time period.
+        </p>
+        <p className="text">
+          The remaining classes also increased in mapped extent. Urban areas
+          more than doubled from 15.38 ha to 35.13 ha, while bare soil increased
+          from approximately 2 ha to 34 ha. Water increased slightly from 3.04
+          ha to 6.17 ha. Although these classes occupy a relatively small
+          proportion of the study area, their increase contributes to the
+          overall change observed between the two assessment periods.
+        </p>
+        <h4>2010</h4>
+        <p className="text">
+          The year 2010 marks the second waypoint in the analysis and provides a
+          further five years of observations. At this stage, the analysis moves
+          beyond the initial changes observed in 2005, allowing us to examine
+          whether those patterns persisted, intensified, or began to reverse.
+        </p>
+        <MiniMap
+          purpose="overlay"
+          data={[
+            { dataset: "landsat", year: 2010 },
+            { dataset: "classification", year: 2010 },
+          ]}
+          description="land cover and composite image for the year 2010"
+          url="/api/v1/tiles/comparisons"
+        />
+        <StatsTable year={2010} />
+        <p className="text">
+          The 2010 classification provides an important point of comparison to
+          the substantial shift observed in 2005. Forest cover declined from
+          237,384 ha in 2005 to 204,035 ha in 2010, a reduction of approximately
+          33,349 ha. Over the same period, herbaceous vegetation increased from
+          137,205 ha to 170,889 ha, reversing much of the change observed in the
+          previous assessment. The increase in classified forest observed
+          between 2000 and 2005 is not sustained in 2010.
+        </p>
+        <p className="text">
+          Bare soil remained relatively limited in extent but increased from
+          1.97 ha in 2000 to 40.41 ha in 2010. Urban areas, meanwhile, covered
+          22.08 ha, slightly above the 2000 baseline but below the 2005
+          estimate. Water remained a very small component of the classified
+          landscape at 4.02 ha.
+        </p>
+        <h4>2015</h4>
+        <p className="text">
+          The year 2015 marks the midpoint of the twenty-five-year analysis and
+          represents an important transition in the satellite record used for
+          the study. Up to this point, the analysis has relied on observations
+          from Landsat 5 and Landsat 7. From 2015 onward, Landsat 8 imagery is
+          used.
+        </p>
+        <MiniMap
+          purpose="overlay"
+          data={[
+            { dataset: "landsat", year: 2015 },
+            { dataset: "classification", year: 2015 },
+          ]}
+          description="land cover and composite image for the year 2015"
+          url="/api/v1/tiles/comparisons"
+        />
+        <StatsTable year={2015} />
+        <p className="text">
+          The 2015 classification shows a further shift between the two dominant
+          land-cover classes. Forest cover declined from 204,035 ha in 2010 to
+          189,131 ha in 2015, a reduction of approximately 14,904 ha. Over the
+          same period, herbaceous vegetation increased by approximately 14,822
+          ha, from 170,889 ha to 185,711 ha. As in the previous assessment, the
+          near-equivalent magnitude of these changes suggests that much of the
+          observed variation occurs between the forest and herbaceous vegetation
+          classes.
+        </p>
+        <p className="text">
+          The pattern observed in 2005 is evident again, but in the opposite
+          direction. The increase in classified forest extent between 2000 and
+          2005 was accompanied by a near-equivalent decline in herbaceous
+          vegetation. Between 2010 and 2015, the relationship is reversed, with
+          a decline in classified forest extent accompanied by a corresponding
+          increase in herbaceous vegetation.
+        </p>
+        <p className="text">
+          Unlike the two dominant classes, the remaining land-cover classes show
+          a marked increase in mapped extent. Bare soil increased from 40.41 ha
+          to 94.13 ha, while urban areas increased from 22.08 ha to 87.16 ha.
+          Water also increased considerably, from 4.02 ha to 61.95 ha. Although
+          these classes remain small relative to forest and herbaceous
+          vegetation, their increasing representation in the classification
+          indicates a greater diversity of mapped land-cover types by 2015.
+        </p>
+        <h4>2020</h4>
+        <p className="text">
+          The year 2020 marks the fourth assessment in the twenty-five-year
+          analysis and brings the study into its second decade of observation.
+        </p>
+        <MiniMap
+          purpose="overlay"
+          data={[
+            { dataset: "landsat", year: 2020 },
+            { dataset: "classification", year: 2020 },
+          ]}
+          description="land cover and composite image for the year 2020"
+          url="/api/v1/tiles/comparisons"
+        />
+        <StatsTable year={2020} />
+        <p className="text">
+          The 2020 classification marks another reversal in the relationship
+          between the two dominant land-cover classes. Forest cover increased
+          from 189,131 ha in 2015 to 206,749 ha in 2020, representing an
+          increase of approximately 17,618 ha. Over the same period, herbaceous
+          vegetation declined by approximately 18,104 ha, from 185,711 ha to
+          167,607 ha. As observed in earlier intervals, the changes in the two
+          classes are closely matched in magnitude, with an increase in
+          classified forest extent accompanied by a corresponding reduction in
+          herbaceous vegetation.
+        </p>
+        <p className="text">
+          This recurring pattern reinforces the importance of interpreting the
+          forest estimates alongside the other vegetation classes. The increase
+          in classified forest extent may reflect genuine changes in vegetation,
+          including regeneration or increased canopy density, but the
+          possibility of classification variability and changes in vegetation
+          condition cannot be excluded.
+        </p>
+        <p className="text">
+          A more pronounced change is evident among the smaller land-cover
+          classes. The area classified as urban increased from 87.16 ha in 2015
+          to 384.58 ha in 2020, an increase of approximately 297 ha. Bare soil
+          also increased from 94.13 ha to 233.59 ha, while water increased more
+          modestly from 61.95 ha to 76.70 ha. The increases in areas classified
+          as urban and bare soil should, however, be interpreted with caution.
+          Visual inspection of the classification suggests that some areas
+          identified as urban correspond to tilled agricultural land and other
+          exposed surfaces, indicating that classification confusion may account
+          for part of the apparent increase.
+        </p>
+        <h4>2025</h4>
+        <p className="text">
+          The year 2025 finally concludes the 25 year journey traced within this
+          analysis. It provides an opportunity to step back from these
+          individual changes and examine the broader trajectory of the Mau
+          Forest Complex over the study period.
+        </p>
+        <MiniMap
+          purpose="overlay"
+          data={[
+            { dataset: "landsat", year: 2025 },
+            { dataset: "classification", year: 2025 },
+          ]}
+          description="land cover and composite image for the year 2025"
+          url="/api/v1/tiles/comparisons"
+        />
+        <StatsTable year={2025} />
+        <p className="text">
+          The 2025 classification concludes the twenty-five-year sequence with a
+          further increase in classified forest extent. Forest cover increased
+          from 206,749 ha in 2020 to 218,807 ha in 2025, an increase of
+          approximately 12,057 ha. Over the same period, herbaceous vegetation
+          declined by approximately 11,566 ha, from 167,607 ha to 156,040 ha. As
+          observed in several of the preceding assessment periods, the changes
+          in the two dominant classes are closely matched, with an increase in
+          classified forest accompanied by a corresponding reduction in
+          herbaceous vegetation.
+        </p>
+        <p className="text">
+          The result continues the alternating pattern observed throughout the
+          analysis. The classified forest extent increased between 2015 and
+          2020, and again between 2020 and 2025, following the decline observed
+          between 2010 and 2015. While the increase may reflect genuine
+          processes such as vegetation regeneration, maturation, or recovery
+          from disturbance, it should not be interpreted independently of the
+          corresponding changes in herbaceous vegetation. The possibility of
+          forest loss, degradation, harvesting, and subsequent regeneration
+          throughout the study period also remains relevant to understanding the
+          fluctuations in classified forest extent.
+        </p>
+        <p className="text">
+          Unlike the previous assessment, the smaller land-cover classes
+          generally declined in mapped extent. Bare soil decreased from 233.59
+          ha to 100.12 ha, while urban areas declined from 384.58 ha to 69.91
+          ha. Water also decreased slightly, from 76.70 ha to 68.30 ha.
+        </p>
+      </section>
+      <section className="conclusion">
+        <h3>Conclusion</h3>
+        <p className="text">
+          The analysis does not support a simple narrative of continuous forest
+          decline across the Mau Forest Complex between 2000 and 2025. Instead,
+          classified forest extent fluctuated substantially between observation
+          periods, with corresponding changes in herbaceous vegetation. By 2025,
+          the area classified as forest was greater than at the 2000 baseline.
+          However, this should not be interpreted as evidence that forest loss
+          did not occur. Rather, the results suggest that forest dynamics within
+          the complex are more complex than a simple, one-directional decline in
+          forest extent.
+        </p>
+        <p className="text">
+          An important consideration is that changes in classified forest extent
+          do not necessarily correspond directly to changes in the physical
+          condition of the forest. An area may, for example, undergo selective
+          harvesting or degradation, develop into a more open or herbaceous
+          state, and subsequently regenerate. Depending on the canopy density
+          and spectral characteristics at the time of observation, the same area
+          may therefore shift between the forest and herbaceous vegetation
+          classes without representing either permanent forest loss or complete
+          forest recovery. Conversely, an area may remain classified as forest
+          while undergoing substantial degradation or selective logging that is
+          not captured by the classification.
+        </p>
+        <p className="text">
+          The results should therefore be understood as a record of changes in
+          classified land cover rather than a definitive measure of forest
+          condition or forest loss. Examining these changes at the level of
+          individual forest reserves over the full study period would therefore
+          provide an important next step, potentially revealing patterns of
+          localized forest loss, regeneration, and land-cover conversion that
+          are obscured when the Mau Forest Complex is considered as a single
+          landscape.
+        </p>
       </section>
     </main>
   );
