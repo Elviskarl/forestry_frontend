@@ -19,7 +19,12 @@ const bounds: L.LatLngBoundsExpression = [
 ];
 const center: L.LatLngExpression = [-0.3809076267889981, 35.86911727658737];
 
-function MiniMap({ description, data, url, purpose }: MiniMapProps) {
+function MiniMap({
+  description,
+  data,
+  url,
+  purpose,
+}: SingleMiniMapProps | DoubleMiniMapProps) {
   const [tileUrl, setTileUrl] = useState<string | null>(null);
   const [tileData, setTileData] = useState<ComparisonResponse["data"]>([]);
   const { mau_forest } = useContext(ShapefileContext)!;
@@ -27,7 +32,7 @@ function MiniMap({ description, data, url, purpose }: MiniMapProps) {
   useEffect(() => {
     async function fetchTiles() {
       try {
-        if (Array.isArray(data)) {
+        if (purpose !== "single") {
           const request = new Request(url, {
             method: "POST",
             body: JSON.stringify({
@@ -40,7 +45,6 @@ function MiniMap({ description, data, url, purpose }: MiniMapProps) {
 
           const result = await fetch(request);
           const serverResponse = (await result.json()) as ComparisonResponse;
-
           const { data: responseData } = serverResponse;
           setTileData(responseData);
           return;
@@ -62,7 +66,7 @@ function MiniMap({ description, data, url, purpose }: MiniMapProps) {
       }
     }
     fetchTiles();
-  }, [data, url]);
+  }, [data, url, purpose]);
 
   if (!mau_forest) return;
 
