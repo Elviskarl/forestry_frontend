@@ -30,6 +30,7 @@ function MiniMap({
   const { mau_forest } = useContext(ShapefileContext)!;
 
   useEffect(() => {
+    const controller = new AbortController();
     let timer: ReturnType<typeof setTimeout>;
     const refreshBuffer = 10;
     async function fetchTiles() {
@@ -43,6 +44,7 @@ function MiniMap({
             headers: {
               "Content-Type": "application/json",
             },
+            signal: controller.signal,
           });
 
           const result = await fetch(request);
@@ -69,7 +71,9 @@ function MiniMap({
             method: "GET",
           },
         );
-        const result = await fetch(request);
+        const result = await fetch(request, {
+          signal: controller.signal,
+        });
         const tileData = (await result.json()) as SuccessfulResponse;
 
         const { data: responseData } = tileData;
@@ -84,12 +88,15 @@ function MiniMap({
           );
         }
       } catch (error) {
+        if (error instanceof DOMException && error.name === "AbortError")
+          return;
         console.error(error);
       }
     }
     fetchTiles();
 
     return () => {
+      controller.abort();
       clearTimeout(timer);
     };
   }, [data, url, purpose]);
