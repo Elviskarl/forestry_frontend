@@ -2,7 +2,12 @@ interface ServerResponse {
   message: string;
 }
 export interface SuccessfulResponse extends ServerResponse {
-  data: { dataset: string; map: string; year: string };
+  data: {
+    dataset: string;
+    map: string;
+    year: string;
+    expiresIn: number | null;
+  };
 }
 export interface ComparisonResponse extends ServerResponse {
   data: SuccessfulResponse["data"][];

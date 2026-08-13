@@ -30,6 +30,8 @@ function MiniMap({
   const { mau_forest } = useContext(ShapefileContext)!;
 
   useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
+    const refreshBuffer = 10;
     async function fetchTiles() {
       try {
         if (purpose !== "single") {
@@ -47,6 +49,18 @@ function MiniMap({
           const serverResponse = (await result.json()) as ComparisonResponse;
           const { data: responseData } = serverResponse;
           setTileData(responseData);
+
+          const ttl = responseData
+            .map((tile) => tile.expiresIn)
+            .filter((ttl) => ttl !== null);
+
+          if (ttl.length > 0) {
+            const minTtl = Math.min(...ttl);
+            timer = setTimeout(
+              fetchTiles,
+              Math.max(1000, (minTtl - refreshBuffer) * 1000),
+            );
+          }
           return;
         }
         const request = new Request(
@@ -61,11 +75,23 @@ function MiniMap({
         const { data: responseData } = tileData;
         const { map } = responseData;
         setTileUrl(map);
+
+        if (responseData.expiresIn !== null) {
+          const ttl = Math.min(responseData.expiresIn);
+          timer = setTimeout(
+            fetchTiles,
+            Math.max(1000, (ttl - refreshBuffer) * 1000),
+          );
+        }
       } catch (error) {
         console.error(error);
       }
     }
     fetchTiles();
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, [data, url, purpose]);
 
   if (!mau_forest) return;
