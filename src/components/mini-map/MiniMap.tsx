@@ -31,73 +31,108 @@ function MiniMap({
 
   useEffect(() => {
     const controller = new AbortController();
-    let timer: ReturnType<typeof setTimeout>;
-    const refreshBuffer = 10;
-    async function fetchTiles() {
-      try {
-        if (purpose !== "single") {
-          const request = new Request(url, {
-            method: "POST",
-            body: JSON.stringify({
-              data,
-            }),
-            headers: {
-              "Content-Type": "application/json",
-            },
-            signal: controller.signal,
-          });
+    let timer: ReturnType<typeof setTimeout> | null = null;
 
-          const result = await fetch(request);
-          const serverResponse = (await result.json()) as ComparisonResponse;
-          const { data: responseData } = serverResponse;
-          setTileData(responseData);
-
-          const ttl = responseData
-            .map((tile) => tile.expiresIn)
-            .filter((ttl) => ttl !== null);
-
-          if (ttl.length > 0) {
-            const minTtl = Math.min(...ttl);
-            timer = setTimeout(
-              fetchTiles,
-              Math.max(1000, (minTtl - refreshBuffer) * 1000),
-            );
-          }
-          return;
-        }
-        const request = new Request(
-          url.concat(`/${data.dataset}/${data.year}`),
-          {
-            method: "GET",
+    let disposed = false;
+    async function fetchTiles(signal: AbortSignal) {
+      if (purpose !== "single") {
+        const request = new Request(url, {
+          method: "POST",
+          body: JSON.stringify({
+            data,
+          }),
+          headers: {
+            "Content-Type": "application/json",
           },
-        );
-        const result = await fetch(request, {
-          signal: controller.signal,
+          signal,
         });
-        const tileData = (await result.json()) as SuccessfulResponse;
 
-        const { data: responseData } = tileData;
-        const { map } = responseData;
-        setTileUrl(map);
+        const result = await fetch(request);
+        const serverResponse = (await result.json()) as ComparisonResponse;
+        const { data: responseData } = serverResponse;
+        return responseData;
+      }
+      const request = new Request(url.concat(`/${data.dataset}/${data.year}`), {
+        method: "GET",
+      });
+      const result = await fetch(request, {
+        signal,
+      });
+      const tileData = (await result.json()) as SuccessfulResponse;
 
-        if (responseData.expiresIn !== null) {
-          const ttl = Math.min(responseData.expiresIn);
-          timer = setTimeout(
-            fetchTiles,
-            Math.max(1000, (ttl - refreshBuffer) * 1000),
-          );
+      const { data: responseData } = tileData;
+      return responseData;
+    }
+
+    function getTtl(
+      data: SuccessfulResponse["data"] | ComparisonResponse["data"],
+    ) {
+      if (Array.isArray(data)) {
+        const ttls = data
+          .map((item) => item.expiresIn)
+          .filter((ttl): ttl is number => ttl !== null);
+
+        if (ttls.length === 0) {
+          return null;
+        }
+
+        return Math.min(...ttls);
+      }
+
+      return data.expiresIn;
+    }
+
+    function scheduleRefresh(ttl: number) {
+      if (timer !== null) {
+        clearTimeout(timer);
+      }
+      const buffer = 10;
+
+      const delay = (ttl - buffer) * 1000;
+
+      timer = setTimeout(() => {
+        void refreshData();
+      }, delay);
+    }
+
+    async function refreshData() {
+      try {
+        const result = await fetchTiles(controller.signal);
+
+        if (disposed) return;
+
+        const ttl = getTtl(result);
+
+        if (disposed) return;
+
+        if (Array.isArray(result)) {
+          setTileData(result);
+        } else {
+          setTileUrl(result.map);
+        }
+
+        // Schedule the next refresh
+        if (ttl !== null) {
+          scheduleRefresh(ttl);
         }
       } catch (error) {
-        if (error instanceof DOMException && error.name === "AbortError")
+        if (error instanceof DOMException && error.name === "AbortError") {
           return;
-        console.error(error);
+        }
+
+        console.error("Error fetching tiles:", error);
       }
     }
-    fetchTiles();
 
+    void refreshData();
     return () => {
+      disposed = true;
       controller.abort();
-      clearTimeout(timer);
+
+      if (timer !== null) {
+        clearTimeout(timer);
+        timer = null;
+      }
     };
   }, [data, url, purpose]);
 
