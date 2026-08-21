@@ -1,8 +1,80 @@
 .mini-map-container {
+  height: 51rem;
   width: 45rem;
-  height: 40rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  position: relative;
 }
 .mini-map-container > .leaflet-container {
   height: 85%;
   width: 100%;
+}
+
+.introduction-content > .introduction-map {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.map-description {
+  text-align: center;
+}
+.full-screen-image-toggle-container {
+  width: 3rem;
+  height: 3rem;
+  position: absolute;
+  bottom: 3rem;
+  right: 1rem;
+  z-index: 500;
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out;
+}
+.full-screen-image-toggle-container:hover {
+  transform: scale(1.1) translate(0, -5px);
+}
+.classification-legend {
+  position: absolute;
+  left: 1rem;
+  bottom: 2rem;
+  z-index: 500;
+  background-color: var(--white-color);
+  padding: 1rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 15rem;
+  line-height: var(--line-height-tight);
+}
+.classification-legend strong {
+  font-weight: var(--font-weight-bold);
+  text-decoration: underline;
+  margin-bottom: 1rem;
+  font-size: var(--text-base);
+}
+.classification-legend > div {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  font-size: var(--text-base);
+}
+.legend-color {
+  display: inline-block;
+  height: 1.5rem;
+  width: 1.5rem;
+}
+.legend-color.forest {
+  background-color: #006400;
+}
+.legend-color.herbaceous {
+  background-color: #ffbb22;
+}
+.legend-color.water {
+  background-color: blue;
+}
+.legend-color.urban {
+  background-color: red;
+}
+.legend-color.bare-soil {
+  background-color: #dc9d82;
 }

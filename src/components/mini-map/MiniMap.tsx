@@ -1,7 +1,7 @@
-import { LayersControl, MapContainer, TileLayer } from "react-leaflet";
+import { LayersControl, MapContainer, TileLayer, useMap } from "react-leaflet";
 import * as L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import "./styles/index.css";
 import type {
   ComparisonResponse,
