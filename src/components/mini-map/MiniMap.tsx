@@ -105,36 +105,36 @@ function MiniMap({
       return responseData;
     }
 
-    function getTtl(
-      data: SuccessfulResponse["data"] | ComparisonResponse["data"],
-    ) {
-      if (Array.isArray(data)) {
-        const ttls = data
-          .map((item) => item.expiresIn)
-          .filter((ttl): ttl is number => ttl !== null);
+    // function getTtl(
+    //   data: SuccessfulResponse["data"] | ComparisonResponse["data"],
+    // ) {
+    //   if (Array.isArray(data)) {
+    //     const ttls = data
+    //       .map((item) => item.expiresIn)
+    //       .filter((ttl): ttl is number => ttl !== null);
 
-        if (ttls.length === 0) {
-          return null;
-        }
+    //     if (ttls.length === 0) {
+    //       return null;
+    //     }
 
-        return Math.min(...ttls);
-      }
+    //     return Math.min(...ttls);
+    //   }
 
-      return data.expiresIn;
-    }
+    //   return data.expiresIn;
+    // }
 
-    function scheduleRefresh(ttl: number) {
-      if (timer !== null) {
-        clearTimeout(timer);
-      }
-      const buffer = 10;
+    // function scheduleRefresh(ttl: number) {
+    //   if (timer !== null) {
+    //     clearTimeout(timer);
+    //   }
+    //   const buffer = 10;
 
-      const delay = (ttl - buffer) * 1000;
+    //   const delay = (ttl - buffer) * 1000;
 
-      timer = setTimeout(() => {
-        void refreshData();
-      }, delay);
-    }
+    //   timer = setTimeout(() => {
+    //     void refreshData();
+    //   }, delay);
+    // }
 
     async function refreshData() {
       try {
@@ -142,7 +142,7 @@ function MiniMap({
 
         if (disposed) return;
 
-        const ttl = getTtl(result);
+        // const ttl = getTtl(result);
 
         if (disposed) return;
 
@@ -153,9 +153,9 @@ function MiniMap({
         }
 
         // Schedule the next refresh
-        if (ttl !== null) {
-          scheduleRefresh(ttl);
-        }
+        // if (ttl !== null) {
+        //   scheduleRefresh(ttl);
+        // }
       } catch (error) {
         if (error instanceof DOMException && error.name === "AbortError") {
           return;
