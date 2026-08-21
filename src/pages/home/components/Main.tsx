@@ -3,6 +3,10 @@ import * as turf from "@turf/turf";
 import { ShapefileContext } from "../../../context/createShapefileContext";
 import MiniMap from "../../../components/mini-map/MiniMap";
 import StatsTable from "./StatsTable";
+import forestBlockUrl from "../../../assets/forest_blocks.jpg";
+import labourControlUrl from "../../../assets/labour_control.jpg";
+import settlementSchemesUrl from "../../../assets/settlement_schemes.jpg";
+import ImageContainer from "./ImageContainer";
 
 function Main() {
   const { target_counties, mau_forest } = useContext(ShapefileContext)!;
@@ -14,25 +18,30 @@ function Main() {
       <section className="introduction">
         <h1 className="introduction-heading">Mau Forest</h1>
         <h3>Introduction</h3>
+        <div className="introduction-content">
+          <div className="introduction-text">
         <p className="text">
-          The mau forest complex is the largest closed-canopy montane tropical
-          forest in East africa. Straddling {target_counties.features.length}{" "}
-          counties covering approximately ~{" "}
-          {(turf.area(mau_forest) / 10000).toLocaleString()} ha, it serves as a
-          catchment for rivers west of the Great Rift Valley.
+              The mau forest complex is the largest closed-canopy montane
+              tropical forest in East africa. Straddling{" "}
+              {target_counties.features.length} counties covering approximately
+              ~ {(turf.area(mau_forest) / 10000).toLocaleString()} ha, it serves
+              as a catchment for rivers west of the Great Rift Valley.
         </p>
         <p className="text">
-          It comprises of 22 forest blocks, 21 of which are managed by the Kenya
-          forest service with the Maasai trust land forest being an exception
-          which is managed by the Narok county government. Of these are 16
-          contiguous forests and 6 separate satellite forests.
+              It comprises of 22 forest blocks, 21 of which are managed by the
+              Kenya forest service with the Maasai trust land forest being an
+              exception which is managed by the Narok county government. Of
+              these are 16 contiguous forests and 6 separate satellite forests.
         </p>
         <p className="text">
           But this was not always the case. The forest has witnessed a long,
-          protracted and contentious history of human habitation. A key theme
-          that emerges in this analysis is the question of who creates and
-          controls forest data in particular, maps.
+              protracted and contentious history of human habitation. A key
+              theme that emerges in this analysis is the question of who creates
+              and controls forest data in particular, maps.
         </p>
+          </div>
+          <ImageContainer url={forestBlockUrl} attr="Forest blocks" />
+        </div>
       </section>
       <section className="background">
         <h3>Historical background</h3>
@@ -40,20 +49,26 @@ function Main() {
           To understand the forest as it exists today, it important to
           understand the conditions that shaped it in the past.
         </p>
+        <div className="introduction-content">
+          <div className="introduction-text">
         <p className="text">
-          The establishment of British colonial rule in Kenya was accompanied by
-          designation of much of the country as crown land. Large areas of
-          fertile land in the rift valley were incorporated into the "White
-          highlands" and allocated to European settlers. Indigenous communities
-          were relocated to ethnically defined reserves , while many others
-          remained on settler farms as squatters, providing labour in exchange
-          for the right to cultivate land. At the same time, large tracts of
-          forest were gazetted as forest reserves resulting in the displacement
-          of communities in the name of conservation and the public interest.
-          Together, these policies resulted in widespread land dispossession and
-          inequality, fueling tensions that intensified after the second world
-          war. This culminated in an armed anti-colonial movement under the name
-          of Land and Freedom Army, which came to be known among the settler
+              The establishment of British colonial rule in Kenya was
+              accompanied by designation of much of the country as crown land.
+              Large areas of fertile land in the rift valley were incorporated
+              into the "White highlands" and allocated to European settlers.
+              Indigenous communities were relocated to ethnically defined
+              reserves , while many others remained on settler farms as
+              squatters, providing labour in exchange for the right to cultivate
+              land.
+              <br />
+              <br />
+              At the same time, large tracts of forest were gazetted as forest
+              reserves resulting in the displacement of communities in the name
+              of conservation and the public interest. Together, these policies
+              resulted in widespread land dispossession and inequality, fueling
+              tensions that intensified after the second world war. This
+              culminated in an armed anti-colonial movement under the name of
+              Land and Freedom Army, which came to be known among the settler
           community as the Mau Mau.
         </p>
         <p className="text">
@@ -64,26 +79,44 @@ function Main() {
           them. The story of land distribution under settlement schemes, is
           largely the story of what happened to these lands.
         </p>
+          </div>
+          <ImageContainer
+            url={labourControlUrl}
+            attr="Labourers cultivating land"
+          />
+        </div>
+        <div className="introduction-content">
+          <div className="introduction-text">
         <p className="text">
-          Following independence, the post colonial state continued to play a
-          central role in controlling access to forest land, often using it to
-          reinforce political patronage. During the Moi administration, many
-          settlers who had occupied parts of the mau forest under the reign of
-          his predecessor were evicted and re-occupied by communities aligned to
-          him. Large areas of the Mau forest complex and other forest reserves
+              Following independence, the post colonial state continued to play
+              a central role in controlling access to forest land, often using
+              it to reinforce political patronage. During the Moi
+              administration, many settlers who had occupied parts of the mau
+              forest under the reign of his predecessor were evicted and
+              re-occupied by communities aligned to him.
+              <br />
+              <br />
+              Large areas of the Mau forest complex and other forest reserves
           were excised and converted into settlement schemes. While these
-          schemes were presented as mechanisms for land distribution, they would
-          also serve to legitimize settlement in the reserves and turn it into a
-          cover for massive and irregular appropriations.
+              schemes were presented as mechanisms for land distribution, they
+              would also serve to legitimize settlement in the reserves and turn
+              it into a cover for massive and irregular appropriations.
         </p>
         <p className="text">
-          Owing to the numerous irregularities surrounding the Mau settlement
-          schemes, the Government has placed caveats in many of the affected
-          areas from 2002 onwards. As a result tens of thousands of residents
-          have remained in a state of legal uncertainty, with unresolved
-          questions over land ownership and tenure continuing to shape debates
-          on conservation and settlement within the forest complex.
+              Owing to the numerous irregularities surrounding the Mau
+              settlement schemes, the Government has placed caveats in many of
+              the affected areas from 2002 onwards. As a result tens of
+              thousands of residents have remained in a state of legal
+              uncertainty, with unresolved questions over land ownership and
+              tenure continuing to shape debates on conservation and settlement
+              within the forest complex.
         </p>
+          </div>
+          <ImageContainer
+            url={settlementSchemesUrl}
+            attr="settlement schemes in and around mau forest"
+          />
+        </div>
       </section>
       <section className="new-era">
         <h3>
@@ -131,19 +164,25 @@ function Main() {
       </section>
       <section className="spatial-analysis">
         <h3>25 years...</h3>
+        <div className="introduction-content">
+          <div className="introduction-text">
         <p className="text">
-          Before beginning the analysis from our baseline, observations acquired
-          prior to this provide valuable historical context. It offers a glimpse
-          of the forest complex before many of the land cover changes analyzed
-          in this study, serving as a visual reference against which the 21
+              Before beginning the analysis from our baseline, observations
+              acquired prior to this provide valuable historical context. It
+              offers a glimpse of the forest complex before many of the land
+              cover changes analyzed in this study, serving as a visual
+              reference against which the 21
           <sup>st</sup> century landscape can be understood.
         </p>
         <p className="text">
-          A composite image generated from landsat 5 observations taken between
-          1984, when it became operational and 1986, provides the earliest
-          visual record used in this study. Consequently it represents the
-          greatest forest extent illustrated within this project.
+              A composite image generated from landsat 5 observations taken
+              between 1984, when it became operational and 1986, provides the
+              earliest visual record used in this study. Consequently it
+              represents the greatest forest extent illustrated within this
+              project.
         </p>
+          </div>
+          <div className="introduction-map">
         <MiniMap
           description="1984 composite image"
           url="/api/v1/tiles"
@@ -153,6 +192,9 @@ function Main() {
           }}
           purpose="single"
         />
+          </div>
+        </div>
+
         <p className="text">
           To enable consistent comparison across the study period, each
           observation year is accompanied by a land-cover classification derived
@@ -264,14 +306,6 @@ function Main() {
           representing an increase of about 43,963 ha. Over the same period,
           herbaceous vegetation declined by approximately 44,438 ha, from
           181,644 ha to 137,205 ha.
-        </p>
-        <p className="text">
-          One possible explanation for the near-equivalent magnitude of these
-          changes is the maturation of vegetation within areas that were
-          previously classified as herbaceous. As young trees and regenerating
-          vegetation develop greater canopy density, their spectral
-          characteristics may increasingly resemble those of established forest,
-          resulting in their classification as forest in 2005.
         </p>
         <p className="text">
           The close correspondence between the decrease in forest and increase
