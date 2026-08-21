@@ -12,12 +12,27 @@ import type {
 import { ShapefileContext } from "../../context/createShapefileContext";
 import { ComparisonLayer } from "./component/ComparisonLayer";
 import DatasetLayer from "./component/DatasetLayer";
+import { bounds } from "../../pages/map/components/data";
+import fullScreenImgUrl from "../../assets/fullscreen.png";
 
-const bounds: L.LatLngBoundsExpression = [
-  [-0.9995495358277411, 35.23259689084519], // southwest
-  [0.23773428224974488, 36.50563766232956], // northeast
-];
 const center: L.LatLngExpression = [-0.3809076267889981, 35.86911727658737];
+
+function RefreshMap({ isFullscreen }: { isFullscreen: boolean }) {
+  const map = useMap();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      map.invalidateSize();
+      map.setZoom(isFullscreen ? 11 : 9);
+
+      console.log("new zoom:", map.getZoom());
+    }, 1);
+
+    return () => clearTimeout(timer);
+  }, [map, isFullscreen]);
+
+  return null;
+}
 
 function MiniMap({
   description,
@@ -27,7 +42,33 @@ function MiniMap({
 }: SingleMiniMapProps | DoubleMiniMapProps) {
   const [tileUrl, setTileUrl] = useState<string | null>(null);
   const [tileData, setTileData] = useState<ComparisonResponse["data"]>([]);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const { mau_forest } = useContext(ShapefileContext)!;
+  const miniMapContainer = useRef<HTMLDivElement>(null);
+
+  async function handleFullscreenToggle() {
+    if (!miniMapContainer.current) return;
+    try {
+      if (document.fullscreenElement === miniMapContainer.current) {
+        await document.exitFullscreen();
+      } else {
+        await miniMapContainer.current.requestFullscreen();
+      }
+    } catch (error) {
+      console.error("fullscreen error: ", error);
+    }
+  }
+
+  useEffect(() => {
+    function handleFullscreenChange() {
+      setIsFullscreen(document.fullscreenElement === miniMapContainer.current);
+    }
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+    };
+  }, []);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -139,7 +180,7 @@ function MiniMap({
   if (!mau_forest) return;
 
   return (
-    <div className="mini-map-container">
+    <div className="mini-map-container" ref={miniMapContainer}>
       <MapContainer
         center={center}
         minZoom={9}
@@ -163,6 +204,14 @@ function MiniMap({
             <ComparisonLayer data={tileData} />
           )}
         </LayersControl>
+        <div
+          className="full-screen-image-toggle-container"
+          title={isFullscreen ? "collapse" : "fullscreen"}
+          onClick={handleFullscreenToggle}
+        >
+          <img src={fullScreenImgUrl} alt="fullScreen" />
+        </div>
+        <RefreshMap isFullscreen={isFullscreen} />
       </MapContainer>
       <div className="map-description">
         <span className="description">{description}</span>
