@@ -20,25 +20,25 @@ function Main() {
         <h3>Introduction</h3>
         <div className="introduction-content">
           <div className="introduction-text">
-        <p className="text">
+            <p className="text">
               The mau forest complex is the largest closed-canopy montane
               tropical forest in East africa. Straddling{" "}
               {target_counties.features.length} counties covering approximately
               ~ {(turf.area(mau_forest) / 10000).toLocaleString()} ha, it serves
               as a catchment for rivers west of the Great Rift Valley.
-        </p>
-        <p className="text">
+            </p>
+            <p className="text">
               It comprises of 22 forest blocks, 21 of which are managed by the
               Kenya forest service with the Maasai trust land forest being an
               exception which is managed by the Narok county government. Of
               these are 16 contiguous forests and 6 separate satellite forests.
-        </p>
-        <p className="text">
-          But this was not always the case. The forest has witnessed a long,
+            </p>
+            <p className="text">
+              But this was not always the case. The forest has witnessed a long,
               protracted and contentious history of human habitation. A key
               theme that emerges in this analysis is the question of who creates
               and controls forest data in particular, maps.
-        </p>
+            </p>
           </div>
           <ImageContainer url={forestBlockUrl} attr="Forest blocks" />
         </div>
@@ -51,7 +51,7 @@ function Main() {
         </p>
         <div className="introduction-content">
           <div className="introduction-text">
-        <p className="text">
+            <p className="text">
               The establishment of British colonial rule in Kenya was
               accompanied by designation of much of the country as crown land.
               Large areas of fertile land in the rift valley were incorporated
@@ -69,16 +69,16 @@ function Main() {
               tensions that intensified after the second world war. This
               culminated in an armed anti-colonial movement under the name of
               Land and Freedom Army, which came to be known among the settler
-          community as the Mau Mau.
-        </p>
-        <p className="text">
-          With the approach of independence, the British government and the
-          colonial administration introduced a land market for settlers who
-          wanted to sell their farms. The Kenyan Government, using loans
-          provided by the British Government and world bank, bought most of
-          them. The story of land distribution under settlement schemes, is
-          largely the story of what happened to these lands.
-        </p>
+              community as the Mau Mau.
+            </p>
+            <p className="text">
+              With the approach of independence, the British government and the
+              colonial administration introduced a land market for settlers who
+              wanted to sell their farms. The Kenyan Government, using loans
+              provided by the British Government and world bank, bought most of
+              them. The story of land distribution under settlement schemes, is
+              largely the story of what happened to these lands.
+            </p>
           </div>
           <ImageContainer
             url={labourControlUrl}
@@ -87,7 +87,7 @@ function Main() {
         </div>
         <div className="introduction-content">
           <div className="introduction-text">
-        <p className="text">
+            <p className="text">
               Following independence, the post colonial state continued to play
               a central role in controlling access to forest land, often using
               it to reinforce political patronage. During the Moi
@@ -97,12 +97,12 @@ function Main() {
               <br />
               <br />
               Large areas of the Mau forest complex and other forest reserves
-          were excised and converted into settlement schemes. While these
+              were excised and converted into settlement schemes. While these
               schemes were presented as mechanisms for land distribution, they
               would also serve to legitimize settlement in the reserves and turn
               it into a cover for massive and irregular appropriations.
-        </p>
-        <p className="text">
+            </p>
+            <p className="text">
               Owing to the numerous irregularities surrounding the Mau
               settlement schemes, the Government has placed caveats in many of
               the affected areas from 2002 onwards. As a result tens of
@@ -110,7 +110,7 @@ function Main() {
               uncertainty, with unresolved questions over land ownership and
               tenure continuing to shape debates on conservation and settlement
               within the forest complex.
-        </p>
+            </p>
           </div>
           <ImageContainer
             url={settlementSchemesUrl}
@@ -166,32 +166,32 @@ function Main() {
         <h3>25 years...</h3>
         <div className="introduction-content">
           <div className="introduction-text">
-        <p className="text">
+            <p className="text">
               Before beginning the analysis from our baseline, observations
               acquired prior to this provide valuable historical context. It
               offers a glimpse of the forest complex before many of the land
               cover changes analyzed in this study, serving as a visual
               reference against which the 21
-          <sup>st</sup> century landscape can be understood.
-        </p>
-        <p className="text">
+              <sup>st</sup> century landscape can be understood.
+            </p>
+            <p className="text">
               A composite image generated from landsat 5 observations taken
               between 1984, when it became operational and 1986, provides the
               earliest visual record used in this study. Consequently it
               represents the greatest forest extent illustrated within this
               project.
-        </p>
+            </p>
           </div>
           <div className="introduction-map">
-        <MiniMap
-          description="1984 composite image"
-          url="/api/v1/tiles"
-          data={{
-            dataset: "landsat",
-            year: 1984,
-          }}
-          purpose="single"
-        />
+            <MiniMap
+              description="1984 composite image"
+              url="/api/v1/tiles"
+              data={{
+                dataset: "landsat",
+                year: 1984,
+              }}
+              purpose="single"
+            />
           </div>
         </div>
 
@@ -227,32 +227,32 @@ function Main() {
         </p>
         <div className="introduction-content">
           <div className="introduction-map">
-        <MiniMap
-          description="Comparison between 1984 and 2000 composite"
-          url="/api/v1/tiles/comparisons"
-          data={[
-            {
-              dataset: "landsat",
-              year: 1984,
-            },
-            {
-              dataset: "landsat",
-              year: 2000,
-            },
-          ]}
-          purpose="comparison"
-        />
+            <MiniMap
+              description="Comparison between 1984 and 2000 composite"
+              url="/api/v1/tiles/comparisons"
+              data={[
+                {
+                  dataset: "landsat",
+                  year: 1984,
+                },
+                {
+                  dataset: "landsat",
+                  year: 2000,
+                },
+              ]}
+              purpose="comparison"
+            />
           </div>
           <div className="introduction-map">
-        <MiniMap
-          description="land cover and composite image for the year 2000"
-          url="/api/v1/tiles/comparisons"
-          data={[
-            { dataset: "classification", year: 2000 },
-            { dataset: "landsat", year: 2000 },
-          ]}
-          purpose="overlay"
-        />
+            <MiniMap
+              description="land cover and composite image for the year 2000"
+              url="/api/v1/tiles/comparisons"
+              data={[
+                { dataset: "classification", year: 2000 },
+                { dataset: "landsat", year: 2000 },
+              ]}
+              purpose="overlay"
+            />
           </div>
         </div>
 
@@ -284,18 +284,18 @@ function Main() {
         </p>
         <div className="introduction-content">
           <div className="introduction-map">
-        <MiniMap
-          url="/api/v1/tiles/comparisons"
-          data={[
-            { dataset: "classification", year: 2005 },
-            { dataset: "landsat", year: 2005 },
-          ]}
-          purpose="overlay"
-          description="land cover and composite image for the year 2005"
-        />
+            <MiniMap
+              url="/api/v1/tiles/comparisons"
+              data={[
+                { dataset: "classification", year: 2005 },
+                { dataset: "landsat", year: 2005 },
+              ]}
+              purpose="overlay"
+              description="land cover and composite image for the year 2005"
+            />
           </div>
           <div className="introduction-table">
-        <StatsTable year={2005} />
+            <StatsTable year={2005} />
           </div>
         </div>
 
@@ -335,18 +335,18 @@ function Main() {
         </p>
         <div className="introduction-content">
           <div className="introduction-map">
-        <MiniMap
-          purpose="overlay"
-          data={[
-            { dataset: "landsat", year: 2010 },
-            { dataset: "classification", year: 2010 },
-          ]}
-          description="land cover and composite image for the year 2010"
-          url="/api/v1/tiles/comparisons"
-        />
+            <MiniMap
+              purpose="overlay"
+              data={[
+                { dataset: "landsat", year: 2010 },
+                { dataset: "classification", year: 2010 },
+              ]}
+              description="land cover and composite image for the year 2010"
+              url="/api/v1/tiles/comparisons"
+            />
           </div>
           <div className="introduction-table">
-        <StatsTable year={2010} />
+            <StatsTable year={2010} />
           </div>
         </div>
         <p className="text">
@@ -375,18 +375,18 @@ function Main() {
         </p>
         <div className="introduction-content">
           <div className="introduction-map">
-        <MiniMap
-          purpose="overlay"
-          data={[
-            { dataset: "landsat", year: 2015 },
-            { dataset: "classification", year: 2015 },
-          ]}
-          description="land cover and composite image for the year 2015"
-          url="/api/v1/tiles/comparisons"
-        />
+            <MiniMap
+              purpose="overlay"
+              data={[
+                { dataset: "landsat", year: 2015 },
+                { dataset: "classification", year: 2015 },
+              ]}
+              description="land cover and composite image for the year 2015"
+              url="/api/v1/tiles/comparisons"
+            />
           </div>
           <div className="introduction-table">
-        <StatsTable year={2015} />
+            <StatsTable year={2015} />
           </div>
         </div>
         <p className="text">
@@ -423,18 +423,18 @@ function Main() {
         </p>
         <div className="introduction-content">
           <div className="introduction-map">
-        <MiniMap
-          purpose="overlay"
-          data={[
-            { dataset: "landsat", year: 2020 },
-            { dataset: "classification", year: 2020 },
-          ]}
-          description="land cover and composite image for the year 2020"
-          url="/api/v1/tiles/comparisons"
-        />
+            <MiniMap
+              purpose="overlay"
+              data={[
+                { dataset: "landsat", year: 2020 },
+                { dataset: "classification", year: 2020 },
+              ]}
+              description="land cover and composite image for the year 2020"
+              url="/api/v1/tiles/comparisons"
+            />
           </div>
           <div className="introduction-table">
-        <StatsTable year={2020} />
+            <StatsTable year={2020} />
           </div>
         </div>
         <p className="text">
@@ -477,18 +477,18 @@ function Main() {
         </p>
         <div className="introduction-content">
           <div className="introduction-map">
-        <MiniMap
-          purpose="overlay"
-          data={[
-            { dataset: "landsat", year: 2025 },
-            { dataset: "classification", year: 2025 },
-          ]}
-          description="land cover and composite image for the year 2025"
-          url="/api/v1/tiles/comparisons"
-        />
+            <MiniMap
+              purpose="overlay"
+              data={[
+                { dataset: "landsat", year: 2025 },
+                { dataset: "classification", year: 2025 },
+              ]}
+              description="land cover and composite image for the year 2025"
+              url="/api/v1/tiles/comparisons"
+            />
           </div>
           <div className="introduction-table">
-        <StatsTable year={2025} />
+            <StatsTable year={2025} />
           </div>
         </div>
         <p className="text">
@@ -509,10 +509,7 @@ function Main() {
           between 2010 and 2015. While the increase may reflect genuine
           processes such as vegetation regeneration, maturation, or recovery
           from disturbance, it should not be interpreted independently of the
-          corresponding changes in herbaceous vegetation. The possibility of
-          forest loss, degradation, harvesting, and subsequent regeneration
-          throughout the study period also remains relevant to understanding the
-          fluctuations in classified forest extent.
+          corresponding changes in herbaceous vegetation.
         </p>
         <p className="text">
           Unlike the previous assessment, the smaller land-cover classes
@@ -524,38 +521,41 @@ function Main() {
       <section className="conclusion">
         <h3>Conclusion</h3>
         <p className="text">
-          The analysis does not support a simple narrative of continuous forest
-          decline across the Mau Forest Complex between 2000 and 2025. Instead,
+          The analysis does not support a straightforward narrative of
+          continuous forest decline across the entire study period. Instead,
           classified forest extent fluctuated substantially between observation
           periods, with corresponding changes in herbaceous vegetation. By 2025,
           the area classified as forest was greater than at the 2000 baseline.
           However, this should not be interpreted as evidence that forest loss
           did not occur. Rather, the results suggest that forest dynamics within
-          the complex are more complex than a simple, one-directional decline in
+          the complex are more nuanced than a simple, one-directional decline in
           forest extent.
         </p>
         <p className="text">
-          An important consideration is that changes in classified forest extent
-          do not necessarily correspond directly to changes in the physical
-          condition of the forest. An area may, for example, undergo selective
-          harvesting or degradation, develop into a more open or herbaceous
-          state, and subsequently regenerate. Depending on the canopy density
-          and spectral characteristics at the time of observation, the same area
-          may therefore shift between the forest and herbaceous vegetation
-          classes without representing either permanent forest loss or complete
-          forest recovery. Conversely, an area may remain classified as forest
-          while undergoing substantial degradation or selective logging that is
-          not captured by the classification.
+          Changes in classified forest extent do not necessarily correspond
+          directly to changes in the physical condition of the forest. An area
+          may undergo selective harvesting or degradation, transition to a more
+          open or herbaceous state, and subsequently regenerate. Depending on
+          canopy density and spectral characteristics at the time of
+          observation, such an area may shift between the forest and herbaceous
+          vegetation classes without representing either permanent forest loss
+          or complete recovery. Conversely, an area may remain classified as
+          forest while experiencing substantial degradation or selective logging
+          that is not captured by the classification. Remote sensing therefore
+          provides a means of observing landscape change across decades, but the
+          classification alone cannot establish the processes responsible for
+          those changes.
         </p>
         <p className="text">
           The results should therefore be understood as a record of changes in
           classified land cover rather than a definitive measure of forest
-          condition or forest loss. Examining these changes at the level of
-          individual forest reserves over the full study period would therefore
-          provide an important next step, potentially revealing patterns of
-          localized forest loss, regeneration, and land-cover conversion that
-          are obscured when the Mau Forest Complex is considered as a single
-          landscape.
+          condition or forest loss. Their value lies not only in quantifying
+          changes in the landscape, but also in identifying patterns that
+          warrant further investigation. Examining these changes at the level of
+          individual forest reserves over the full study period would provide an
+          important next step, potentially revealing patterns of localized
+          forest loss, regeneration, and land-cover conversion that are obscured
+          when the Mau Forest Complex is considered as a single landscape.
         </p>
       </section>
     </main>
