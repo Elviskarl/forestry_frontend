@@ -1,0 +1,33 @@
+table {
+  font-size: var(--text-paragraph);
+  background-color: var(--accent-tint);
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+th,
+caption {
+  padding: 1rem;
+  background-color: var(--accent-tint);
+}
+td {
+  padding: 1rem;
+}
+
+caption,
+th {
+  text-align: left;
+}
+
+caption {
+  background-color: var(--tertiary-tint);
+  font-weight: var(--font-weight-bold);
+  text-transform: capitalize;
+}
+
+th {
+  background-color: var(--accent-base);
+}
+
+tbody tr:nth-of-type(2n) {
+  background-color: hsl(87, 6%, 72%, 0.2);
+}

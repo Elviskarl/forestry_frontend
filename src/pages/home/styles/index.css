@@ -1,3 +1,16 @@
+main {
+  padding: 0 1.5rem;
+}
+main > section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+p.text {
+  margin-top: 1rem;
+  color: var(--gray-base);
+}
+
 div.hero {
   height: calc(100vh - var(--navbar-height));
   background: url("../../../assets/hero.webp") center / cover no-repeat
@@ -54,4 +67,41 @@ div.hero {
   color: blue;
   font-size: inherit;
   transition: transform 0.5s ease-in-out;
+}
+
+/* Introduction */
+.introduction-heading {
+  text-align: center;
+}
+.introduction-content {
+  display: flex;
+  align-items: flex-start;
+  margin: 2rem 0;
+}
+.introduction-content:nth-child(even) {
+  flex-direction: row-reverse;
+}
+.introduction-text,
+.image-container {
+  width: 50%;
+}
+.introduction-text {
+  display: flex;
+  flex-direction: column;
+}
+.image-container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.image-container img {
+  max-height: 500px;
+  object-fit: contain;
+}
+.introduction-table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
