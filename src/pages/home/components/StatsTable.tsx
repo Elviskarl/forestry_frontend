@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { ShapefileContext } from "../../../context/createShapefileContext";
 import { getAreaData } from "../../../utils/utils";
+import "../styles/statsTableStyle.css";
 
 function StatsTable({ year }: { year: number }) {
   const { statisticData } = useContext(ShapefileContext)!;
@@ -12,6 +13,7 @@ function StatsTable({ year }: { year: number }) {
       </p>
       <div className="table-container">
         <table>
+          <caption>Classified area</caption>
           <thead>
             <tr>
               <th>Class</th>

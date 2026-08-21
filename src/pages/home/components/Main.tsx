@@ -183,6 +183,8 @@ function Main() {
           are already evident, indicating that landscape transformation had
           begun well before the study period.
         </p>
+        <div className="introduction-content">
+          <div className="introduction-map">
         <MiniMap
           description="Comparison between 1984 and 2000 composite"
           url="/api/v1/tiles/comparisons"
@@ -198,11 +200,8 @@ function Main() {
           ]}
           purpose="comparison"
         />
-        <p className="text">
-          From this composite image, a land cover classification map was
-          generated generated to map the spatial distribution of the five
-          land-cover classes across the study area.
-        </p>
+          </div>
+          <div className="introduction-map">
         <MiniMap
           description="land cover and composite image for the year 2000"
           url="/api/v1/tiles/comparisons"
@@ -212,6 +211,15 @@ function Main() {
           ]}
           purpose="overlay"
         />
+          </div>
+        </div>
+
+        <p className="text">
+          From this composite image, a land cover classification map was
+          generated generated to map the spatial distribution of the five
+          land-cover classes across the study area.
+        </p>
+
         <StatsTable year={2000} />
         <p className="text">
           The results show that forest is the most dominant land cover class
@@ -232,6 +240,8 @@ function Main() {
           landscape transformation, revealing how the land cover classes shifted
           over the first five years of the study.
         </p>
+        <div className="introduction-content">
+          <div className="introduction-map">
         <MiniMap
           url="/api/v1/tiles/comparisons"
           data={[
@@ -241,7 +251,12 @@ function Main() {
           purpose="overlay"
           description="land cover and composite image for the year 2005"
         />
+          </div>
+          <div className="introduction-table">
         <StatsTable year={2005} />
+          </div>
+        </div>
+
         <p className="text">
           The 2005 classification reveals a substantial change in the
           distribution of the two dominant land-cover classes. Forest cover
@@ -284,6 +299,8 @@ function Main() {
           beyond the initial changes observed in 2005, allowing us to examine
           whether those patterns persisted, intensified, or began to reverse.
         </p>
+        <div className="introduction-content">
+          <div className="introduction-map">
         <MiniMap
           purpose="overlay"
           data={[
@@ -293,7 +310,11 @@ function Main() {
           description="land cover and composite image for the year 2010"
           url="/api/v1/tiles/comparisons"
         />
+          </div>
+          <div className="introduction-table">
         <StatsTable year={2010} />
+          </div>
+        </div>
         <p className="text">
           The 2010 classification provides an important point of comparison to
           the substantial shift observed in 2005. Forest cover declined from
@@ -318,6 +339,8 @@ function Main() {
           from Landsat 5 and Landsat 7. From 2015 onward, Landsat 8 imagery is
           used.
         </p>
+        <div className="introduction-content">
+          <div className="introduction-map">
         <MiniMap
           purpose="overlay"
           data={[
@@ -327,7 +350,11 @@ function Main() {
           description="land cover and composite image for the year 2015"
           url="/api/v1/tiles/comparisons"
         />
+          </div>
+          <div className="introduction-table">
         <StatsTable year={2015} />
+          </div>
+        </div>
         <p className="text">
           The 2015 classification shows a further shift between the two dominant
           land-cover classes. Forest cover declined from 204,035 ha in 2010 to
@@ -360,6 +387,8 @@ function Main() {
           The year 2020 marks the fourth assessment in the twenty-five-year
           analysis and brings the study into its second decade of observation.
         </p>
+        <div className="introduction-content">
+          <div className="introduction-map">
         <MiniMap
           purpose="overlay"
           data={[
@@ -369,7 +398,11 @@ function Main() {
           description="land cover and composite image for the year 2020"
           url="/api/v1/tiles/comparisons"
         />
+          </div>
+          <div className="introduction-table">
         <StatsTable year={2020} />
+          </div>
+        </div>
         <p className="text">
           The 2020 classification marks another reversal in the relationship
           between the two dominant land-cover classes. Forest cover increased
@@ -408,6 +441,8 @@ function Main() {
           individual changes and examine the broader trajectory of the Mau
           Forest Complex over the study period.
         </p>
+        <div className="introduction-content">
+          <div className="introduction-map">
         <MiniMap
           purpose="overlay"
           data={[
@@ -417,7 +452,11 @@ function Main() {
           description="land cover and composite image for the year 2025"
           url="/api/v1/tiles/comparisons"
         />
+          </div>
+          <div className="introduction-table">
         <StatsTable year={2025} />
+          </div>
+        </div>
         <p className="text">
           The 2025 classification concludes the twenty-five-year sequence with a
           further increase in classified forest extent. Forest cover increased
