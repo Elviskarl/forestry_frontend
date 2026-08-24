@@ -5,8 +5,11 @@ import MiniMap from "../../../components/mini-map/MiniMap";
 import StatsTable from "./StatsTable";
 import forestBlockUrl from "../../../assets/forest_blocks.jpg";
 import labourControlUrl from "../../../assets/labour_control.jpg";
+import openLinkUrl from "../../../assets/open-link.svg";
+
 import settlementSchemesUrl from "../../../assets/settlement_schemes.jpg";
 import ImageContainer from "./ImageContainer";
+import CitationLink from "./CitationLink";
 
 function Main() {
   const { target_counties, mau_forest } = useContext(ShapefileContext)!;
@@ -40,7 +43,11 @@ function Main() {
               and controls forest data in particular, maps.
             </p>
           </div>
-          <ImageContainer url={forestBlockUrl} attr="Forest blocks" />
+          <ImageContainer
+            url={forestBlockUrl}
+            attr="Forest blocks"
+            citation={{ id: "one", position: 1 }}
+          />
         </div>
       </section>
       <section className="background">
@@ -60,6 +67,7 @@ function Main() {
               reserves , while many others remained on settler farms as
               squatters, providing labour in exchange for the right to cultivate
               land.
+              <CitationLink id={"one"} position={1} />
               <br />
               <br />
               At the same time, large tracts of forest were gazetted as forest
@@ -70,6 +78,7 @@ function Main() {
               culminated in an armed anti-colonial movement under the name of
               Land and Freedom Army, which came to be known among the settler
               community as the Mau Mau.
+              <CitationLink id={"two"} position={2} />
             </p>
             <p className="text">
               With the approach of independence, the British government and the
@@ -78,11 +87,13 @@ function Main() {
               provided by the British Government and world bank, bought most of
               them. The story of land distribution under settlement schemes, is
               largely the story of what happened to these lands.
+              <CitationLink id={"two"} position={2} />
             </p>
           </div>
           <ImageContainer
             url={labourControlUrl}
             attr="Labourers cultivating land"
+            citation={{ id: "three", position: 3 }}
           />
         </div>
         <div className="introduction-content">
@@ -94,6 +105,7 @@ function Main() {
               administration, many settlers who had occupied parts of the mau
               forest under the reign of his predecessor were evicted and
               re-occupied by communities aligned to him.
+              <CitationLink id={"four"} position={4} />
               <br />
               <br />
               Large areas of the Mau forest complex and other forest reserves
@@ -101,6 +113,7 @@ function Main() {
               schemes were presented as mechanisms for land distribution, they
               would also serve to legitimize settlement in the reserves and turn
               it into a cover for massive and irregular appropriations.
+              <CitationLink id={"four"} position={4} />
             </p>
             <p className="text">
               Owing to the numerous irregularities surrounding the Mau
@@ -110,11 +123,13 @@ function Main() {
               uncertainty, with unresolved questions over land ownership and
               tenure continuing to shape debates on conservation and settlement
               within the forest complex.
+              <CitationLink id={"two"} position={2} />
             </p>
           </div>
           <ImageContainer
             url={settlementSchemesUrl}
             attr="settlement schemes in and around mau forest"
+            citation={{ id: "two", position: 2 }}
           />
         </div>
       </section>
@@ -557,6 +572,62 @@ function Main() {
           forest loss, regeneration, and land-cover conversion that are obscured
           when the Mau Forest Complex is considered as a single landscape.
         </p>
+      </section>
+      <section className="citations">
+        <h3>References</h3>
+        <p className="text">
+          The project draws on the following academic publications for its
+          historical context, methodology and analysis:
+        </p>
+        <ol className="citations-list">
+          <li className="source" id="one">
+            Müller-Koné, M., & Mkutu, K. (2025). Settlements as dispossession:
+            Forest conservation and frontiers’ violence in Mau Forest, Kenya.
+            World Development, 200, 107303.
+            <a
+              href="https://doi.org/10.1016/j.worlddev.2025.107303"
+              target="_blank"
+              className="link-to-source"
+            >
+              <img src={openLinkUrl} alt="open" />
+            </a>
+          </li>
+          <li className="source" id="two">
+            Boone, C., Lukalo, F., & Joireman, S. F. (2021). Promised Land:
+            Settlement Schemes in Kenya, 1962 to 2016. Political Geography,
+            89(1), 102393.
+            <a
+              href="https://doi.org/10.1016/j.polgeo.2021.102393"
+              target="_blank"
+              className="link-to-source"
+            >
+              <img src={openLinkUrl} alt="open" />
+            </a>
+          </li>
+          <li className="source" id="three">
+            Fibaek, M., & Green, E. (2019). Labour Control and the Establishment
+            of Profitable Settler Agriculture in Colonial Kenya, c. 1920–45.
+            Economic History of Developing Regions, 34(1), 72–110.
+            <a
+              href="https://doi.org/10.1080/20780389.2019.1581058"
+              target="_blank"
+              className="link-to-source"
+            >
+              <img src={openLinkUrl} alt="open" />
+            </a>
+          </li>
+          <li className="source" id="four">
+            Klopp, J. M., & Sang, J. K. (2011, October 20). Maps, Power, and the
+            Destruction of the Mau Forest in Kenya.
+            <a
+              href="https://www.researchgate.net/publication/328410887_Maps_Power_and_the_Destruction_of_the_Mau_Forest_in_Kenya"
+              target="_blank"
+              className="link-to-source"
+            >
+              <img src={openLinkUrl} alt="open" />
+            </a>
+          </li>
+        </ol>
       </section>
     </main>
   );
