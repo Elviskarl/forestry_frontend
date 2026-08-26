@@ -1,12 +1,60 @@
-import { MapContainer, TileLayer, LayersControl, GeoJSON } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  LayersControl,
+  GeoJSON,
+  useMap,
+} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { useContext } from "react";
+import * as L from "leaflet";
+import { useContext, useEffect } from "react";
 import { ShapefileContext } from "../../../context/createShapefileContext";
 import type { StyleFunction } from "leaflet";
+import { bounds } from "./data";
+import type { selectedTileDetails } from "../../../components/types";
+
+function LayerComparison({ data }: { data: selectedTileDetails[] }) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (data.length !== 2) return;
+
+    const comparisonPane = map.createPane("comparisonPane");
+    comparisonPane.style.zIndex = "450";
+
+    const beforeLayer = L.tileLayer(data[0].url, {
+      noWrap: true,
+      pane: "comparisonPane",
+    });
+
+    const afterLayer = L.tileLayer(data[1].url, {
+      noWrap: true,
+      pane: "comparisonPane",
+    });
+
+    beforeLayer.addTo(map);
+    afterLayer.addTo(map);
+
+    const sideBySideControl = L.control
+      .sideBySide(beforeLayer, afterLayer)
+      .addTo(map);
+
+    return () => {
+      map.removeLayer(beforeLayer);
+      map.removeLayer(afterLayer);
+      sideBySideControl.remove();
+    };
+  }, [data, map]);
+
+  return null;
+}
 
 function LeafletMap() {
-  const { target_counties, mau_forest } = useContext(ShapefileContext)!;
-  if (!target_counties || !mau_forest) return;
+  const { target_counties, mau_forest, selectedTile } =
+    useContext(ShapefileContext)!;
+
+  if (!target_counties || !mau_forest) return null;
+  const center: L.LatLngExpression = [-0.3809076267889981, 35.86911727658737];
 
   const counties_Style: StyleFunction = () => ({
     color: "#2E7D32",
@@ -21,7 +69,15 @@ function LeafletMap() {
     fillOpacity: 0.2,
   });
   return (
-    <MapContainer zoom={12} scrollWheelZoom={true} center={[-0.55, 35.648]}>
+    <MapContainer
+      center={center}
+      minZoom={9}
+      scrollWheelZoom={true}
+      zoom={9}
+      bounds={bounds}
+      maxBounds={bounds}
+      maxBoundsViscosity={1.0}
+    >
       <LayersControl position="topright">
         <LayersControl.BaseLayer name="OpenStreetMap" checked>
           <TileLayer
@@ -36,6 +92,17 @@ function LeafletMap() {
             subdomains={["mt1", "mt2", "mt3"]}
           />
         </LayersControl.BaseLayer>
+        {Array.isArray(selectedTile) ? (
+          <LayerComparison data={selectedTile} />
+        ) : (
+          <LayersControl.Overlay
+            key={selectedTile.dataset.concat(String(selectedTile.year))}
+            name={`${selectedTile.dataset} ${selectedTile.year}`}
+            checked
+          >
+            <TileLayer url={selectedTile.url} noWrap={true} />
+          </LayersControl.Overlay>
+        )}
         <LayersControl.Overlay name="Counties">
           <GeoJSON data={target_counties} style={counties_Style} />
         </LayersControl.Overlay>
