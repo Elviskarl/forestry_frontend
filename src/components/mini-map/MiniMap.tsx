@@ -24,8 +24,6 @@ function RefreshMap({ isFullscreen }: { isFullscreen: boolean }) {
     const timer = setTimeout(() => {
       map.invalidateSize();
       map.setZoom(isFullscreen ? 11 : 9);
-
-      console.log("new zoom:", map.getZoom());
     }, 1);
 
     return () => clearTimeout(timer);

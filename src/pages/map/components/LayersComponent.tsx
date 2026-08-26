@@ -49,8 +49,6 @@ export default function LayersComponent() {
         throw new Error("Expected exactly two layers for comparison");
       }
 
-      console.log(data);
-
       const selectedData = data.map((layer) => ({
         dataset: layer.dataset as "landsat" | "classification",
         year: Number(layer.year),
