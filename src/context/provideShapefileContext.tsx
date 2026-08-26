@@ -2,7 +2,7 @@ import type { FeatureCollection, MultiPolygon, Polygon } from "geojson";
 import { ShapefileContext } from "./createShapefileContext";
 import { useEffect, useState } from "react";
 import { loadBoundary } from "../utils/utils";
-import type { StatsResponse } from "../components/types";
+import type { selectedTileDetails, StatsResponse } from "../components/types";
 
 export function ShapefileContextProvider({
   children,
@@ -18,6 +18,9 @@ export function ShapefileContextProvider({
   const [statisticData, setStatisticData] = useState<
     StatsResponse["data"] | null
   >(null);
+  const [selectedTile, setSelectedTile] = useState<
+    selectedTileDetails | selectedTileDetails[]
+  >([]);
 
   useEffect(() => {
     async function loadShapefile() {
@@ -46,7 +49,13 @@ export function ShapefileContextProvider({
   }, []);
   return (
     <ShapefileContext.Provider
-      value={{ mau_forest, target_counties, statisticData }}
+      value={{
+        mau_forest,
+        target_counties,
+        statisticData,
+        selectedTile,
+        setSelectedTile,
+      }}
     >
       {children}
     </ShapefileContext.Provider>

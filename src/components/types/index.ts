@@ -46,3 +46,9 @@ export interface StatsResponse extends ServerResponse {
     }[];
   }[];
 }
+
+export interface selectedTileDetails {
+  dataset: MiniMapUrlDetails["dataset"];
+  year: number;
+  url: string;
+}
