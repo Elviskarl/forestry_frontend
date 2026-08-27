@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@turf/turf": "^7.3.5",
     "leaflet": "^1.9.4",
     "leaflet-side-by-side": "^2.2.0",
     "react": "^19.2.7",

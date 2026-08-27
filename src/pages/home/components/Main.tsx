@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import * as turf from "@turf/turf";
 import { ShapefileContext } from "../../../context/createShapefileContext";
 import MiniMap from "../../../components/mini-map/MiniMap";
 import StatsTable from "./StatsTable";
@@ -27,8 +26,8 @@ function Main() {
               The mau forest complex is the largest closed-canopy montane
               tropical forest in East africa. Straddling{" "}
               {target_counties.features.length} counties covering approximately
-              ~ {(turf.area(mau_forest) / 10000).toLocaleString()} ha, it serves
-              as a catchment for rivers west of the Great Rift Valley.
+              ~ 374,680.345 ha, it serves as a catchment for rivers west of the
+              Great Rift Valley.
             </p>
             <p className="text">
               It comprises of 22 forest blocks, 21 of which are managed by the
