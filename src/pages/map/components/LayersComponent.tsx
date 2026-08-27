@@ -69,11 +69,18 @@ export default function LayersComponent() {
     setSelectedTile([]);
     setLayerData([]);
   }
+
+  const activeLayers = Array.isArray(selectedTile)
+    ? selectedTile
+    : selectedTile
+      ? [selectedTile]
+      : [];
+
   return (
     <div className="sidebar-item">
       <form className="dataset-selection-form" onSubmit={handleSubmit}>
         <fieldset>
-          <legend>Comparison slider</legend>
+          <legend>Comparison slider [optional]</legend>
           <div className="checkbox-container">
             <input
               type="checkbox"
@@ -147,6 +154,39 @@ export default function LayersComponent() {
           </button>
         </div>
       </form>
+      <div className="available-layers">
+        <div className="available-layers-heading">
+          <span className="available-layers-title">active layers</span>
+        </div>
+        <div className="available-layers-list">
+          {activeLayers.length > 0 ? (
+            activeLayers.map((layer, index) => (
+              <div
+                className="available-layer"
+                key={`${layer.dataset}-${layer.year}-${index}`}
+              >
+                <span className="available-item">{layer.dataset}</span>
+                <span className="available-item"> {layer.year}</span>
+              </div>
+            ))
+          ) : (
+            <span className="no-available-item">No active layers</span>
+          )}
+        </div>
+        <div className="reference-layers">
+          <div className="available-layers-heading">
+            <span className="available-layers-title">reference layers</span>
+          </div>
+          <div className="available-layers-list">
+            <div className="available-layer">
+              <span className="available-item">mau forest</span>
+            </div>
+            <div className="available-layer">
+              <span className="available-item">counties data</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
