@@ -1,4 +1,10 @@
-import { LayersControl, MapContainer, TileLayer, useMap } from "react-leaflet";
+import {
+  LayersControl,
+  MapContainer,
+  TileLayer,
+  useMap,
+  GeoJSON,
+} from "react-leaflet";
 import * as L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useContext, useEffect, useRef, useState } from "react";
@@ -175,6 +181,13 @@ function MiniMap({
     };
   }, [data, url, purpose]);
 
+  const forest_Style: L.StyleFunction = () => ({
+    color: "#2E7D32",
+    weight: 2,
+    fillColor: "gray",
+    fillOpacity: 0.2,
+  });
+
   if (!mau_forest) return;
 
   return (
@@ -190,12 +203,17 @@ function MiniMap({
       >
         <LayersControl position="topright">
           {purpose === "single" && "dataset" in data ? (
-            <LayersControl.BaseLayer
-              name={`${data.dataset} ${data.year}`}
-              checked
-            >
-              {tileUrl && <TileLayer url={tileUrl} noWrap={true} />}
-            </LayersControl.BaseLayer>
+            <>
+              <LayersControl.BaseLayer
+                name={`${data.dataset} ${data.year}`}
+                checked
+              >
+                {tileUrl && <TileLayer url={tileUrl} noWrap={true} />}
+              </LayersControl.BaseLayer>
+              <LayersControl.Overlay name="mau forest">
+                <GeoJSON data={mau_forest} style={forest_Style} />
+              </LayersControl.Overlay>
+            </>
           ) : purpose === "overlay" ? (
             <DatasetLayer data={tileData} />
           ) : (
