@@ -52,6 +52,9 @@ section.about-section-page h3 {
 .accordion-item-header:hover {
   transform: scale(1.01);
 }
+.accordion-item-header.active .dropDownContainer {
+  transform: rotate(180deg);
+}
 .accordion-item-header h5 {
   letter-spacing: 0.5px;
 }
