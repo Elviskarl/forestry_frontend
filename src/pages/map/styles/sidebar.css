@@ -51,6 +51,7 @@ span.list-heading {
   display: flex;
   align-items: center;
   gap: 1rem;
+  position: relative;
 }
 .sidebar-image-container {
   height: 3rem;
@@ -68,6 +69,7 @@ span.list-heading {
   width: 80%;
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
   padding: 1rem 0.5rem;
 }
 .add-to-map-btn,
@@ -106,4 +108,8 @@ span.list-heading {
   text-decoration: underline;
   color: red;
   letter-spacing: 0.5px;
+}
+span[data-styleId="loader"] {
+  position: absolute;
+  right: 1rem;
 }

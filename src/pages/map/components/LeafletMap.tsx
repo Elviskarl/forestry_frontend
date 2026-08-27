@@ -7,13 +7,24 @@ import {
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import * as L from "leaflet";
-import { useContext, useEffect } from "react";
+import {
+  useContext,
+  useEffect,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
 import { ShapefileContext } from "../../../context/createShapefileContext";
 import type { StyleFunction } from "leaflet";
 import { bounds } from "./data";
 import type { selectedTileDetails } from "../../../components/types";
 
-function LayerComparison({ data }: { data: selectedTileDetails[] }) {
+function LayerComparison({
+  data,
+  setterFunction,
+}: {
+  data: selectedTileDetails[];
+  setterFunction: Dispatch<SetStateAction<boolean>>;
+}) {
   const map = useMap();
 
   useEffect(() => {
@@ -32,6 +43,19 @@ function LayerComparison({ data }: { data: selectedTileDetails[] }) {
       pane: "comparisonPane",
     });
 
+    let loaded = 0;
+
+    const handleLoad = () => {
+      loaded++;
+
+      if (loaded === 2) {
+        setterFunction(false);
+      }
+    };
+
+    beforeLayer.once("load", handleLoad);
+    afterLayer.once("load", handleLoad);
+
     beforeLayer.addTo(map);
     afterLayer.addTo(map);
 
@@ -44,13 +68,13 @@ function LayerComparison({ data }: { data: selectedTileDetails[] }) {
       map.removeLayer(afterLayer);
       sideBySideControl.remove();
     };
-  }, [data, map]);
+  }, [data, map, setterFunction]);
 
   return null;
 }
 
 function LeafletMap() {
-  const { target_counties, mau_forest, selectedTile } =
+  const { target_counties, mau_forest, selectedTile, setIsMapLoading } =
     useContext(ShapefileContext)!;
 
   if (!target_counties || !mau_forest) return null;
@@ -93,14 +117,24 @@ function LeafletMap() {
           />
         </LayersControl.BaseLayer>
         {Array.isArray(selectedTile) ? (
-          <LayerComparison data={selectedTile} />
+          <LayerComparison
+            data={selectedTile}
+            setterFunction={setIsMapLoading}
+          />
         ) : (
           <LayersControl.Overlay
             key={selectedTile.dataset.concat(String(selectedTile.year))}
             name={`${selectedTile.dataset} ${selectedTile.year}`}
             checked
           >
-            <TileLayer url={selectedTile.url} noWrap={true} />
+            <TileLayer
+              url={selectedTile.url}
+              noWrap={true}
+              eventHandlers={{
+                load: () => setIsMapLoading(false),
+                tileerror: () => setIsMapLoading(false),
+              }}
+            />
           </LayersControl.Overlay>
         )}
         <LayersControl.Overlay name="Counties">

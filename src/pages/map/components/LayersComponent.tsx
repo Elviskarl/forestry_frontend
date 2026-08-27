@@ -8,9 +8,11 @@ import { ShapefileContext } from "../../../context/createShapefileContext";
 import type { MiniMapUrlDetails } from "../../../components/types";
 import { getTile } from "../../../components/mini-map/utils/utils";
 import DatasetOptions from "./DatasetsOption";
+import { BeatLoader } from "react-spinners";
 
 export default function LayersComponent() {
-  const { setSelectedTile, selectedTile } = useContext(ShapefileContext)!;
+  const { setSelectedTile, selectedTile, isMapLoading, setIsMapLoading } =
+    useContext(ShapefileContext)!;
   const [layerData, setLayerData] = useState<MiniMapUrlDetails[]>([]);
 
   const [compareLayers, setCompareLayers] = useState(false);
@@ -25,6 +27,8 @@ export default function LayersComponent() {
     if (isMissing) return;
 
     try {
+      setIsMapLoading(true);
+
       if (!compareLayers) {
         const layer = layerData[0];
 
@@ -130,6 +134,7 @@ export default function LayersComponent() {
           >
             Add
           </button>
+          <BeatLoader color="#32cd32" loading={isMapLoading} size={8} />
           <button
             className="remove-from-map-btn"
             onClick={removeFromMap}

@@ -31,3 +31,7 @@ th {
 tbody tr:nth-of-type(2n) {
   background-color: hsl(87, 6%, 72%, 0.2);
 }
+tr.loader-container {
+  text-align: center;
+  vertical-align: middle;
+}
