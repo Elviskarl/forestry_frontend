@@ -10,5 +10,9 @@ interface shapefileContext {
   setSelectedTile: Dispatch<
     SetStateAction<selectedTileDetails | selectedTileDetails[]>
   >;
+  isMapLoading: boolean;
+  setIsMapLoading: Dispatch<SetStateAction<boolean>>;
+  isConnecting: boolean;
+  setIsConnecting: Dispatch<SetStateAction<boolean>>;
 }
 export const ShapefileContext = createContext<shapefileContext | null>(null);

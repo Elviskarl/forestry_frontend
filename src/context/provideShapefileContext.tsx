@@ -21,6 +21,8 @@ export function ShapefileContextProvider({
   const [selectedTile, setSelectedTile] = useState<
     selectedTileDetails | selectedTileDetails[]
   >([]);
+  const [isMapLoading, setIsMapLoading] = useState(false);
+  const [isConnecting, setIsConnecting] = useState(false);
 
   useEffect(() => {
     async function loadShapefile() {
@@ -33,6 +35,7 @@ export function ShapefileContextProvider({
     }
     async function fetchStatistics() {
       try {
+        setIsConnecting(true);
         const response = await fetch("/api/v1/stats");
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -42,6 +45,8 @@ export function ShapefileContextProvider({
         setStatisticData(data);
       } catch (error) {
         console.error("Error fetching stats:", error);
+      } finally {
+        setIsConnecting(false);
       }
     }
     loadShapefile();
@@ -55,6 +60,10 @@ export function ShapefileContextProvider({
         statisticData,
         selectedTile,
         setSelectedTile,
+        isMapLoading,
+        setIsMapLoading,
+        isConnecting,
+        setIsConnecting,
       }}
     >
       {children}
