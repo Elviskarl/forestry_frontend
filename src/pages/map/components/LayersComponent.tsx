@@ -181,9 +181,6 @@ export default function LayersComponent() {
             <div className="available-layer">
               <span className="available-item">mau forest</span>
             </div>
-            <div className="available-layer">
-              <span className="available-item">counties data</span>
-            </div>
           </div>
         </div>
       </div>

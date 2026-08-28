@@ -350,14 +350,14 @@ export default function About() {
             </a>
           </span>
           <span className="link-to-resources">
-            Spatial Querrying -{" "}
+            Kenya SRTM data -{" "}
             <a
-              href="https://turfjs.org/"
-              title="turfjs"
+              href="https://gmesgeoportal.rcmrd.org/datasets/9a461a538cf848299b996a28cdc42ef6/"
+              title="gmesgeoportal"
               className="link-tags"
               target="_blank"
             >
-              Turf.js - Turf.js Contributors
+              GMES & Africa Geoportal
             </a>
           </span>
           <span className="link-to-resources">
@@ -386,7 +386,7 @@ export default function About() {
             Remote sensing & geospatial processing -{" "}
             <a
               href="https://earthengine.google.com/"
-              title="Google earth"
+              title="Google earth engine"
               className="link-tags"
               target="_blank"
             >

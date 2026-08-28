@@ -74,20 +74,14 @@ function LayerComparison({
 }
 
 function LeafletMap() {
-  const { target_counties, mau_forest, selectedTile, setIsMapLoading } =
+  const { mau_forest, selectedTile, setIsMapLoading } =
     useContext(ShapefileContext)!;
 
-  if (!target_counties || !mau_forest) return null;
+  if (!mau_forest) return null;
   const center: L.LatLngExpression = [-0.3809076267889981, 35.86911727658737];
 
-  const counties_Style: StyleFunction = () => ({
-    color: "#2E7D32",
-    weight: 2,
-    fillColor: "#66BB6A",
-    fillOpacity: 0.2,
-  });
   const forest_Style: StyleFunction = () => ({
-    color: "#000",
+    color: "#2E7D32",
     weight: 2,
     fillColor: "gray",
     fillOpacity: 0.2,
@@ -137,9 +131,6 @@ function LeafletMap() {
             />
           </LayersControl.Overlay>
         )}
-        <LayersControl.Overlay name="Counties">
-          <GeoJSON data={target_counties} style={counties_Style} />
-        </LayersControl.Overlay>
         <LayersControl.Overlay name="mau forest">
           <GeoJSON data={mau_forest} style={forest_Style} />
         </LayersControl.Overlay>
