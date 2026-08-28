@@ -17,7 +17,7 @@ import type {
 } from "../types";
 import { ShapefileContext } from "../../context/createShapefileContext";
 import { ComparisonLayer } from "./component/ComparisonLayer";
-import DatasetLayer from "./component/DatasetLayer";
+import { DatasetLayer } from "./component/DatasetLayer";
 import { bounds } from "../../pages/map/components/data";
 import fullScreenImgUrl from "../../assets/fullscreen.png";
 

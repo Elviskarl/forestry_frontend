@@ -17,6 +17,7 @@ import { ShapefileContext } from "../../../context/createShapefileContext";
 import type { StyleFunction } from "leaflet";
 import { bounds } from "./data";
 import type { selectedTileDetails } from "../../../components/types";
+import { ClassificationLegend } from "../../../components/mini-map/component/DatasetLayer";
 
 function LayerComparison({
   data,
@@ -86,6 +87,17 @@ function LeafletMap() {
     fillColor: "gray",
     fillOpacity: 0.2,
   });
+
+  const activeLayers = Array.isArray(selectedTile)
+    ? selectedTile
+    : selectedTile
+      ? [selectedTile]
+      : [];
+
+  const hasClassificationLayer = activeLayers.some(
+    (layer) => layer.dataset === "classification",
+  );
+
   return (
     <MapContainer
       center={center}
@@ -135,6 +147,7 @@ function LeafletMap() {
           <GeoJSON data={mau_forest} style={forest_Style} />
         </LayersControl.Overlay>
       </LayersControl>
+      {hasClassificationLayer && <ClassificationLegend />}
     </MapContainer>
   );
 }

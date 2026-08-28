@@ -6,7 +6,7 @@ import { useState } from "react";
 interface DatasetLayerProps {
   data: ComparisonResponse["data"];
 }
-function ClassificationLegend() {
+ export function ClassificationLegend() {
   const [isMinimized, setIsMinimized] = useState(false);
 
   function handleClick() {
@@ -59,7 +59,7 @@ function ClassificationLegend() {
   );
 }
 
-export default function DatasetLayer({ data }: DatasetLayerProps) {
+export function DatasetLayer({ data }: DatasetLayerProps) {
   if (data.length !== 2) return null;
 
   const baseLayer = data.find((tile) => tile.dataset === "landsat");
