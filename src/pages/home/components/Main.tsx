@@ -11,9 +11,9 @@ import ImageContainer from "./ImageContainer";
 import CitationLink from "./CitationLink";
 
 function Main() {
-  const { target_counties, mau_forest } = useContext(ShapefileContext)!;
+  const { mau_forest } = useContext(ShapefileContext)!;
 
-  if (!target_counties || !mau_forest) return;
+  if (!mau_forest) return;
 
   return (
     <main>
@@ -24,10 +24,9 @@ function Main() {
           <div className="introduction-text">
             <p className="text">
               The mau forest complex is the largest closed-canopy montane
-              tropical forest in East africa. Straddling{" "}
-              {target_counties.features.length} counties covering approximately
-              ~ 374,680.345 ha, it serves as a catchment for rivers west of the
-              Great Rift Valley.
+              tropical forest in East africa. Straddling 8 counties covering
+              approximately ~ 374,680.345 ha, it serves as a catchment for
+              rivers west of the Great Rift Valley.
             </p>
             <p className="text">
               It comprises of 22 forest blocks, 21 of which are managed by the

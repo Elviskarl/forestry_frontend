@@ -4,7 +4,6 @@ import type { selectedTileDetails, StatsResponse } from "../components/types";
 
 interface shapefileContext {
   mau_forest: FeatureCollection<Polygon | MultiPolygon> | null;
-  target_counties: FeatureCollection<Polygon | MultiPolygon> | null;
   statisticData: StatsResponse["data"] | null;
   selectedTile: selectedTileDetails | selectedTileDetails[];
   setSelectedTile: Dispatch<
