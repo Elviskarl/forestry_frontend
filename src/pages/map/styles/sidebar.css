@@ -25,6 +25,7 @@ button:disabled {
 .sidebar-container {
   padding: 1rem;
   width: 100%;
+  overflow-y: auto;
 }
 .sidebar-list {
   padding: 1rem 0;
@@ -147,4 +148,22 @@ span[data-styleId="loader"] {
 .no-available-item {
   color: red;
   font-size: var(--text-paragraph);
+}
+.menu-image-container {
+  height: 4rem;
+  width: 4rem;
+  position: absolute;
+  right: -5rem;
+  top: 1rem;
+  padding: 0.5rem;
+  background-color: var(--accent-shade);
+  cursor: pointer;
+}
+aside.sidebar-closed {
+  width: 15rem;
+  height: auto;
+}
+
+aside.sidebar-closed .sidebar-item {
+  display: none;
 }
