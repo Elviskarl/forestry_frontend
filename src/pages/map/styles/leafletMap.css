@@ -9,3 +9,8 @@
   height: 100%;
   width: 100%;
 }
+.map-section-container div.classification-legend {
+  left: unset;
+  right: 2rem;
+  bottom: 3rem;
+}

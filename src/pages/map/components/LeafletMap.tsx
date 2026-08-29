@@ -144,7 +144,10 @@ function LeafletMap() {
           </LayersControl.Overlay>
         )}
         <LayersControl.Overlay name="mau forest">
-          <GeoJSON data={mau_forest} style={forest_Style} />
+          <GeoJSON
+            data={mau_forest}
+            style={forest_Style}
+          />
         </LayersControl.Overlay>
       </LayersControl>
       {hasClassificationLayer && <ClassificationLegend />}
