@@ -1,0 +1,67 @@
+/* tablets to small Laptops - 780 to 1096 px */
+@media (max-width: 68.5rem) {
+  aside.sidebar {
+    width: 38%;
+  }
+  aside.sidebar-closed {
+    width: 15rem;
+    height: auto;
+  }
+}
+
+/* phone landscape to tablets - 672 to 800 px */
+@media (max-width: 50rem) {
+  aside.sidebar {
+    width: 46%;
+  }
+  aside.sidebar-closed {
+    width: 15rem;
+    height: auto;
+  }
+}
+
+@media (max-width: 38.75rem) {
+  aside.sidebar {
+    width: 100%;
+    max-width: unset;
+    max-height: unset;
+    padding: 5px 0;
+    z-index: 1800;
+  }
+  aside.sidebar-closed {
+    width: 15rem;
+  }
+  aside.sidebar .menu-image-container {
+    animation: slideToTop 2s linear 0.2s forwards;
+  }
+  nav.navbar div.logo {
+    animation: moveRight 2s linear 0.5s forwards;
+  }
+}
+
+@keyframes slideToTop {
+  from {
+    left: 100%;
+    top: 1%;
+  }
+  50% {
+    left: 0;
+    top: 0;
+  }
+  to {
+    top: -7rem;
+    left: 0.9rem;
+    background-color: transparent;
+    height: 5rem;
+    width: 5rem;
+  }
+}
+
+@keyframes moveRight {
+  from {
+    margin-left: 0;
+  }
+  to {
+    margin-left: 6rem;
+  }
+}

@@ -1,0 +1,49 @@
+/* typography.css */
+
+@media (max-width: 78rem) {
+  body {
+    line-height: 2;
+  }
+  .introduction-content {
+    gap: 1rem;
+  }
+  section.background > .introduction-content {
+    flex-direction: column;
+  }
+  section.background > .introduction-content > .introduction-text {
+    width: 100%;
+  }
+  section.background > .introduction-content > .image-container {
+    width: 100%;
+  }
+}
+
+/* tablets to small Laptops - 780 to 1000 px */
+@media (max-width: 62.5rem) {
+  section.introduction > .introduction-content {
+    flex-direction: column;
+  }
+  section.introduction > .introduction-content > .introduction-text {
+    width: 100%;
+  }
+  section.introduction > .introduction-content > .image-container {
+    width: 100%;
+  }
+}
+
+/* phone landscape to tablets - 672 to 780 px */
+@media (max-width: 42rem) {
+  div.hero {
+    height: 500px;
+    margin-bottom: 5rem;
+  }
+  section.spatial-analysis .introduction-content {
+    flex-direction: column;
+  }
+  section.spatial-analysis .introduction-content .introduction-map {
+    width: 100%;
+  }
+  section.spatial-analysis .introduction-content .introduction-text {
+    width: 100%;
+  }
+}

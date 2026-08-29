@@ -9,6 +9,7 @@ import openLinkUrl from "../../../assets/open-link.svg";
 import settlementSchemesUrl from "../../../assets/settlement_schemes.jpg";
 import ImageContainer from "./ImageContainer";
 import CitationLink from "./CitationLink";
+import "../styles/HomepageMediaQuery.css";
 
 function Main() {
   const { mau_forest } = useContext(ShapefileContext)!;
@@ -51,7 +52,7 @@ function Main() {
       <section className="background">
         <h3>Historical background</h3>
         <p className="text">
-          To understand the forest as it exists today, it important to
+          To understand the forest as it exists today, it is important to
           understand the conditions that shaped it in the past.
         </p>
         <div className="introduction-content">

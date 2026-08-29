@@ -361,17 +361,6 @@ export default function About() {
             </a>
           </span>
           <span className="link-to-resources">
-            Counties data -{" "}
-            <a
-              href="https://opendata.rcmrd.org/datasets/2c55f3ad7ee847e99b70e3b7e1efee7c/about"
-              target="_blank"
-              title="counties-data"
-              className="link-tags"
-            >
-              RCMRD Open Data
-            </a>
-          </span>
-          <span className="link-to-resources">
             Forest reserves data -{" "}
             <a
               href="https://rcoe-geoportal.rcmrd.org/maps/8e201758cbf44bbc82f3caa76138d3d6"
