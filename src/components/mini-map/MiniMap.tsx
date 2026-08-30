@@ -81,7 +81,7 @@ function MiniMap({
     let disposed = false;
     async function fetchTiles(signal: AbortSignal) {
       if (purpose !== "single") {
-        const request = new Request(url, {
+        const request = new Request(`${import.meta.env.VITE_API_URL}${url}`, {
           method: "POST",
           body: JSON.stringify({
             data,
@@ -97,9 +97,13 @@ function MiniMap({
         const { data: responseData } = serverResponse;
         return responseData;
       }
-      const request = new Request(url.concat(`/${data.dataset}/${data.year}`), {
-        method: "GET",
-      });
+      const request = new Request(
+        import.meta.env.VITE_API_URL +
+          url.concat(`/${data.dataset}/${data.year}`),
+        {
+          method: "GET",
+        },
+      );
       const result = await fetch(request, {
         signal,
       });

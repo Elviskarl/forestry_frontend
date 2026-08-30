@@ -32,7 +32,9 @@ export function ShapefileContextProvider({
     async function fetchStatistics() {
       try {
         setIsConnecting(true);
-        const response = await fetch("/api/v1/stats");
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/v1/stats`,
+        );
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

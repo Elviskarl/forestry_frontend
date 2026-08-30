@@ -32,7 +32,11 @@ export default function LayersComponent() {
       if (!compareLayers) {
         const layer = layerData[0];
 
-        const data = await getTile(layer, "/api/v1/tiles", false);
+        const data = await getTile(
+          layer,
+          `${import.meta.env.VITE_API_URL}/api/v1/tiles`,
+          false,
+        );
 
         if (Array.isArray(data)) {
           throw new Error("Expected a single tile response");
