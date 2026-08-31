@@ -6,6 +6,7 @@ export default function DatasetOptions({
   data,
   setData,
   layerIndex,
+  comparison,
 }: {
   comparison: boolean;
   data: MiniMapUrlDetails[];
@@ -39,11 +40,18 @@ export default function DatasetOptions({
           <option value="" disabled>
             --please choose an option--
           </option>
-          {Object.keys(assets).map((val, index) => (
-            <option key={val.concat(String(index))} value={val}>
-              {val}
-            </option>
-          ))}
+          {Object.keys(assets)
+            .filter((dataset) => {
+              if (comparison && layerIndex === 1) {
+                return dataset === data[0]?.dataset;
+              }
+              return true;
+            })
+            .map((dataset, index) => (
+              <option key={dataset.concat(String(index))} value={dataset}>
+                {dataset}
+              </option>
+            ))}
         </select>
       </fieldset>
       <fieldset>
