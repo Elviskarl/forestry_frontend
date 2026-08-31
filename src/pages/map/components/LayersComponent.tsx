@@ -66,6 +66,7 @@ export default function LayersComponent() {
       setSelectedTile(selectedData);
     } catch (error) {
       console.error("Failed to load tile:", error);
+      setIsMapLoading(false);
     }
   }
 
