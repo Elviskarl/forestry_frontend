@@ -10,6 +10,7 @@ import settlementSchemesUrl from "../../../assets/settlement_schemes.jpg";
 import ImageContainer from "./ImageContainer";
 import CitationLink from "./CitationLink";
 import "../styles/HomepageMediaQuery.css";
+import { Link } from "react-router-dom";
 
 function Main() {
   const { mau_forest } = useContext(ShapefileContext)!;
@@ -174,6 +175,15 @@ function Main() {
           observation window provided a sufficient number of cloud free images
           from both scenes to generate seamless composites while maintaining a
           consistent seasonal period across all years.
+          <br />
+          <span className="link-to-about">
+            <Link
+              to="/about"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            >
+              learn more &#8594;
+            </Link>
+          </span>
         </p>
       </section>
       <section className="spatial-analysis">

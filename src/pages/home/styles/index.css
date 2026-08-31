@@ -148,3 +148,12 @@ ol.citations-list {
 .in-page-link {
   color: blue;
 }
+.link-to-about {
+  color: blue;
+  text-decoration: underline;
+  font-size: inherit;
+  text-transform: capitalize;
+}
+.link-to-about a {
+  font-size: inherit;
+}
