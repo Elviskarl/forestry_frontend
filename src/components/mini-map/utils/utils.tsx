@@ -35,12 +35,9 @@ export async function getTile(
     throw new Error("Expected a single layer when comparison is disabled");
   }
 
-  const request = new Request(
-    import.meta.env.VITE_API_URL + url.concat(`/${data.dataset}/${data.year}`),
-    {
-      method: "GET",
-    },
-  );
+  const request = new Request(url.concat(`/${data.dataset}/${data.year}`), {
+    method: "GET",
+  });
 
   const result = await fetch(request);
 
