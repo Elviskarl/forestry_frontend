@@ -23,6 +23,7 @@ export default function DatasetOptions({
           value={data[layerIndex]?.dataset || ""}
           onChange={(e) => {
             const value = e.target.value as MiniMapUrlDetails["dataset"];
+
             setData((prevData) => {
               const newData = [...prevData];
 
@@ -31,6 +32,14 @@ export default function DatasetOptions({
                 dataset: value,
                 year: 0,
               };
+
+              if (comparison && layerIndex === 0 && newData[1]) {
+                newData[1] = {
+                  ...newData[1],
+                  dataset: value,
+                  year: 0,
+                };
+              }
 
               return newData;
             });
