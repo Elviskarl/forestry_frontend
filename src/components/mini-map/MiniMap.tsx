@@ -7,7 +7,13 @@ import {
 } from "react-leaflet";
 import * as L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { useContext, useEffect, useRef, useState } from "react";
+import {
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+} from "react";
 import "./styles/index.css";
 import type {
   ComparisonResponse,
@@ -20,6 +26,7 @@ import { ComparisonLayer } from "./component/ComparisonLayer";
 import { DatasetLayer } from "./component/DatasetLayer";
 import { bounds } from "../../pages/map/components/data";
 import fullScreenImgUrl from "../../assets/fullscreen.png";
+import { BounceLoader } from "react-spinners";
 
 const center: L.LatLngExpression = [-0.3809076267889981, 35.86911727658737];
 
@@ -47,7 +54,7 @@ function MiniMap({
   const [tileUrl, setTileUrl] = useState<string | null>(null);
   const [tileData, setTileData] = useState<ComparisonResponse["data"]>([]);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const { mau_forest } = useContext(ShapefileContext)!;
+  const { mau_forest, isConnecting } = useContext(ShapefileContext)!;
   const miniMapContainer = useRef<HTMLDivElement>(null);
 
   async function handleFullscreenToggle() {
@@ -191,6 +198,14 @@ function MiniMap({
     fillColor: "gray",
     fillOpacity: 0.2,
   });
+  const override: CSSProperties = {
+    display: "block",
+    zIndex: 700,
+    position: "absolute",
+    left: "50%",
+    bottom: "50%",
+    transform: "translate(-50%, 50%)",
+  };
 
   if (!mau_forest) return;
 
@@ -232,6 +247,12 @@ function MiniMap({
           <img src={fullScreenImgUrl} alt="fullScreen" />
         </div>
         <RefreshMap isFullscreen={isFullscreen} />
+        <BounceLoader
+          cssOverride={override}
+          color="var(--gray-base)"
+          loading={isConnecting}
+          size={70}
+        />
       </MapContainer>
       <div className="map-description">
         <span className="description">{description}</span>
