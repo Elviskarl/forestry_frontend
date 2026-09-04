@@ -253,7 +253,7 @@ function Main() {
           <div className="introduction-map">
             <MiniMap
               description="Comparison between 1984 and 2000 composite"
-              url="/api/v1/tiles/comparisons"
+              url="/api/v1/tiles"
               data={[
                 {
                   dataset: "landsat",
@@ -270,7 +270,7 @@ function Main() {
           <div className="introduction-map">
             <MiniMap
               description="land cover and composite image for the year 2000"
-              url="/api/v1/tiles/comparisons"
+              url="/api/v1/tiles"
               data={[
                 { dataset: "classification", year: 2000 },
                 { dataset: "landsat", year: 2000 },
@@ -309,7 +309,7 @@ function Main() {
         <div className="introduction-content">
           <div className="introduction-map">
             <MiniMap
-              url="/api/v1/tiles/comparisons"
+              url="/api/v1/tiles"
               data={[
                 { dataset: "classification", year: 2005 },
                 { dataset: "landsat", year: 2005 },
@@ -366,7 +366,7 @@ function Main() {
                 { dataset: "classification", year: 2010 },
               ]}
               description="land cover and composite image for the year 2010"
-              url="/api/v1/tiles/comparisons"
+              url="/api/v1/tiles"
             />
           </div>
           <div className="introduction-table">
@@ -406,7 +406,7 @@ function Main() {
                 { dataset: "classification", year: 2015 },
               ]}
               description="land cover and composite image for the year 2015"
-              url="/api/v1/tiles/comparisons"
+              url="/api/v1/tiles"
             />
           </div>
           <div className="introduction-table">
@@ -454,7 +454,7 @@ function Main() {
                 { dataset: "classification", year: 2020 },
               ]}
               description="land cover and composite image for the year 2020"
-              url="/api/v1/tiles/comparisons"
+              url="/api/v1/tiles"
             />
           </div>
           <div className="introduction-table">
@@ -508,7 +508,7 @@ function Main() {
                 { dataset: "classification", year: 2025 },
               ]}
               description="land cover and composite image for the year 2025"
-              url="/api/v1/tiles/comparisons"
+              url="/api/v1/tiles"
             />
           </div>
           <div className="introduction-table">

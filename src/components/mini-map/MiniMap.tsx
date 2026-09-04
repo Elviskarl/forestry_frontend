@@ -27,6 +27,7 @@ import { DatasetLayer } from "./component/DatasetLayer";
 import { bounds } from "../../pages/map/components/data";
 import fullScreenImgUrl from "../../assets/fullscreen.png";
 import { BounceLoader } from "react-spinners";
+import { tileDataCache } from "../../cache/dataCache";
 
 const center: L.LatLngExpression = [-0.3809076267889981, 35.86911727658737];
 
@@ -87,37 +88,47 @@ function MiniMap({
 
     let disposed = false;
     async function fetchTiles(signal: AbortSignal) {
-      if (purpose !== "single") {
-        const request = new Request(`${import.meta.env.VITE_API_URL}${url}`, {
-          method: "POST",
-          body: JSON.stringify({
-            data,
-          }),
-          headers: {
-            "Content-Type": "application/json",
+      const result: SuccessfulResponse["data"][] = [];
+      const items = Array.isArray(data) ? data : [data];
+
+      for (const item of items) {
+        const cachedData = tileDataCache.get(item.dataset, item.year);
+
+        if (cachedData) {
+          result.push(cachedData);
+          continue;
+        }
+
+        const request = new Request(
+          import.meta.env.VITE_API_URL +
+            url.concat(`/${item.dataset}/${item.year}`),
+          {
+            method: "GET",
           },
-          signal,
-        });
+        );
 
-        const result = await fetch(request);
-        const serverResponse = (await result.json()) as ComparisonResponse;
-        const { data: responseData } = serverResponse;
-        return responseData;
+        const response = await fetch(request, { signal });
+
+        if (!response.ok) {
+          throw new Error(
+            `Failed to fetch tile data for ${item.dataset} ${item.year}`,
+          );
+        }
+
+        const tileData = (await response.json()) as SuccessfulResponse;
+        const { data: responseData } = tileData;
+
+        tileDataCache.set(
+          responseData.dataset,
+          Number(responseData.year),
+          responseData,
+          18000, // 5 hours
+        );
+
+        result.push(responseData);
       }
-      const request = new Request(
-        import.meta.env.VITE_API_URL +
-          url.concat(`/${data.dataset}/${data.year}`),
-        {
-          method: "GET",
-        },
-      );
-      const result = await fetch(request, {
-        signal,
-      });
-      const tileData = (await result.json()) as SuccessfulResponse;
 
-      const { data: responseData } = tileData;
-      return responseData;
+      return result;
     }
 
     // function getTtl(
@@ -161,10 +172,10 @@ function MiniMap({
 
         if (disposed) return;
 
-        if (Array.isArray(result)) {
-          setTileData(result);
+        if (result.length === 1) {
+          setTileUrl(result[0].map);
         } else {
-          setTileUrl(result.map);
+          setTileData(result);
         }
 
         // Schedule the next refresh
