@@ -3,7 +3,7 @@ interface ServerResponse {
 }
 export interface SuccessfulResponse extends ServerResponse {
   data: {
-    dataset: string;
+    dataset: MiniMapUrlDetails["dataset"];
     map: string;
     year: string;
     expiresIn: number | null;
