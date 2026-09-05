@@ -16,9 +16,7 @@ export function ShapefileContextProvider({
   const [statisticData, setStatisticData] = useState<
     StatsResponse["data"] | null
   >(null);
-  const [selectedTile, setSelectedTile] = useState<
-    selectedTileDetails | selectedTileDetails[]
-  >([]);
+  const [selectedTile, setSelectedTile] = useState<selectedTileDetails[]>([]);
   const [isMapLoading, setIsMapLoading] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
 
