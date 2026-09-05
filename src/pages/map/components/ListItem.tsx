@@ -21,7 +21,7 @@ export default function ListItem({ url, name, Component }: ListItemProps) {
           size={30}
           color="#32cd32"
           loading={isConnecting}
-          data-styleId="loader"
+          data-styleid="loader"
         />
       </div>
       <Component />

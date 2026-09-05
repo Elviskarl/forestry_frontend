@@ -110,7 +110,7 @@ span.list-heading {
   color: red;
   letter-spacing: 0.5px;
 }
-span[data-styleId="loader"] {
+span[data-styleid="loader"] {
   position: absolute;
   right: 1rem;
 }
