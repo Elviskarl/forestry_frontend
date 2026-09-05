@@ -122,32 +122,31 @@ function LeafletMap() {
             subdomains={["mt1", "mt2", "mt3"]}
           />
         </LayersControl.BaseLayer>
-        {Array.isArray(selectedTile) ? (
-          <LayerComparison
-            data={selectedTile}
-            setterFunction={setIsMapLoading}
-          />
-        ) : (
-          <LayersControl.Overlay
-            key={selectedTile.dataset.concat(String(selectedTile.year))}
-            name={`${selectedTile.dataset} ${selectedTile.year}`}
-            checked
-          >
-            <TileLayer
-              url={selectedTile.url}
-              noWrap={true}
-              eventHandlers={{
-                load: () => setIsMapLoading(false),
-                tileerror: () => setIsMapLoading(false),
-              }}
+        {selectedTile.length ? (
+          selectedTile.length === 2 ? (
+            <LayerComparison
+              data={selectedTile}
+              setterFunction={setIsMapLoading}
             />
-          </LayersControl.Overlay>
-        )}
+          ) : (
+            <LayersControl.Overlay
+              key={selectedTile[0].dataset.concat(String(selectedTile[0].year))}
+              name={`${selectedTile[0].dataset} ${selectedTile[0].year}`}
+              checked
+            >
+              <TileLayer
+                url={selectedTile[0].url}
+                noWrap={true}
+                eventHandlers={{
+                  load: () => setIsMapLoading(false),
+                  tileerror: () => setIsMapLoading(false),
+                }}
+              />
+            </LayersControl.Overlay>
+          )
+        ) : null}
         <LayersControl.Overlay name="mau forest">
-          <GeoJSON
-            data={mau_forest}
-            style={forest_Style}
-          />
+          <GeoJSON data={mau_forest} style={forest_Style} />
         </LayersControl.Overlay>
       </LayersControl>
       {hasClassificationLayer && <ClassificationLegend />}

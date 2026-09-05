@@ -29,33 +29,10 @@ export default function LayersComponent() {
     try {
       setIsMapLoading(true);
 
-      if (!compareLayers) {
-        const layer = layerData[0];
-
-        const data = await getTile(
-          layer,
-          `${import.meta.env.VITE_API_URL}/api/v1/tiles`,
-          false,
-        );
-
-        if (Array.isArray(data)) {
-          throw new Error("Expected a single tile response");
-        }
-
-        setSelectedTile({
-          ...layer,
-          url: data.map,
-        });
-
-        return;
-      }
-
-      // Compare layers
-      const data = await getTile(layerData, "/api/v1/tiles/comparisons", true);
-
-      if (!Array.isArray(data) || data.length !== 2) {
-        throw new Error("Expected exactly two layers for comparison");
-      }
+      const data = await getTile(
+        layerData,
+        `${import.meta.env.VITE_API_URL}/api/v1/tiles`,
+      );
 
       const selectedData = data.map((layer) => ({
         dataset: layer.dataset as "landsat" | "classification",
