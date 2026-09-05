@@ -9,6 +9,13 @@ class DataCache<T> {
 
   private expiresAt: number | null = null;
 
+  name: "tiles" | "stats";
+
+  constructor(name: "tiles" | "stats") {
+    this.name = name;
+    this.loadFromLocalStorage();
+  }
+
   private createKey(
     dataset: MiniMapUrlDetails["dataset"],
     year: number,
@@ -25,6 +32,8 @@ class DataCache<T> {
     const key = this.createKey(dataset, year);
 
     this.cache.set(key, data);
+
+    this.saveToLocalStorage();
 
     if (this.expiresAt === null) {
       this.expiresAt = Date.now() + expiresIn * 1000;
@@ -48,6 +57,15 @@ class DataCache<T> {
     return entry;
   }
 
+  getAll(): T[] | null {
+    if (this.isExpired()) {
+      this.clear();
+      return null;
+    }
+
+    return Array.from(this.cache.values());
+  }
+
   has(dataset: MiniMapUrlDetails["dataset"], year: number): boolean {
     return this.get(dataset, year) !== null;
   }
@@ -60,11 +78,25 @@ class DataCache<T> {
     return Date.now() >= this.expiresAt;
   }
 
+  private saveToLocalStorage(): void {
+    const cacheData = Array.from(this.cache.entries());
+    localStorage.setItem(`${this.name}DataCache`, JSON.stringify(cacheData));
+  }
+
+  private loadFromLocalStorage(): void {
+    const cacheData = localStorage.getItem(`${this.name}DataCache`);
+    if (cacheData) {
+      const parsedData = JSON.parse(cacheData) as [string, T][];
+      this.cache = new Map(parsedData);
+    }
+  }
+
   clear(): void {
     this.cache.clear();
     this.expiresAt = null;
+    localStorage.removeItem(`${this.name}DataCache`);
   }
 }
 
-export const tileDataCache = new DataCache<SuccessfulResponse["data"]>();
-export const statsDataCache = new DataCache<StatsResponse["data"]>();
+export const tileDataCache = new DataCache<SuccessfulResponse["data"]>("tiles");
+export const statsDataCache = new DataCache<StatsResponse["data"]>("stats");

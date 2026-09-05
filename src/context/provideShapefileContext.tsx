@@ -3,6 +3,7 @@ import { ShapefileContext } from "./createShapefileContext";
 import { useEffect, useState } from "react";
 import { loadBoundary } from "../utils/utils";
 import type { selectedTileDetails, StatsResponse } from "../components/types";
+import { statsDataCache } from "../cache/dataCache";
 
 export function ShapefileContextProvider({
   children,
@@ -32,6 +33,12 @@ export function ShapefileContextProvider({
     async function fetchStatistics() {
       try {
         setIsConnecting(true);
+
+        const cachedData = statsDataCache.getAll();
+        if (cachedData) {
+          setStatisticData(cachedData.flat());
+          return;
+        }
         const response = await fetch(
           `${import.meta.env.VITE_API_URL}/api/v1/stats`,
         );
@@ -41,6 +48,15 @@ export function ShapefileContextProvider({
         const statsResponseData: StatsResponse = await response.json();
         const { data } = statsResponseData;
         setStatisticData(data);
+
+        data.forEach((item) => {
+          statsDataCache.set(
+            "classification",
+            parseInt(item.year),
+            [item],
+            18000, // 5 hours in seconds
+          );
+        });
       } catch (error) {
         console.error("Error fetching stats:", error);
       } finally {
